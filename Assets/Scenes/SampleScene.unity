@@ -543,10 +543,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0_0
+  m_text: '>= 0 il ==='
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f84f7ed5be0b8e14e94861337175018f, type: 2}
-  m_sharedMaterial: {fileID: 5849112568459600594, guid: f84f7ed5be0b8e14e94861337175018f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2079231320b5f9949a5729c9c6331557, type: 2}
+  m_sharedMaterial: {fileID: -3081328902050555650, guid: 2079231320b5f9949a5729c9c6331557, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
