@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -13,10 +15,27 @@ public class task_editing_window_behavior : MonoBehaviour
     public GameObject Unminimizer;
 
 
+    [Header("other")]
+    public GameObject parent;
+    public TextMeshProUGUI limit_displayer;
+    public TextMeshProUGUI header;
+    public TextMeshProUGUI body;
+
     public void toggle_open()
     {
         isOpen = !isOpen;
         this.gameObject.SetActive(isOpen);
+
+        if (isOpen == true)
+        {
+            transform.SetParent(time_controller.current.transform);
+            transform.SetAsLastSibling();
+        }
+        else
+        {
+            transform.SetParent(parent.transform);
+            transform.SetAsFirstSibling();
+        }
     }
 
     public void toggle_minimize()
@@ -33,9 +52,9 @@ public class task_editing_window_behavior : MonoBehaviour
 
     public void FixedUpdate()
     {
-        transform.SetPositionAndRotation(new Vector3(0,0, transform.position.z), transform.rotation);
+        transform.SetPositionAndRotation(new Vector3(0, 0, transform.position.z), transform.rotation);
 
-        
+
     }
 
     public IEnumerator animate_minimize()
@@ -74,7 +93,7 @@ public class task_editing_window_behavior : MonoBehaviour
     }
     public IEnumerator animate_maximize()
     {
-        for (int i = 0; i < window_speed; i++) 
+        for (int i = 0; i < window_speed; i++)
         {
             if (maximize == true)
             {
@@ -104,5 +123,10 @@ public class task_editing_window_behavior : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    public void limit_display()
+    {
+        limit_displayer.text = "header: " + header.text.Length + "/540" + ", body: " + body.text.Length + "/5005";
     }
 }
