@@ -3,6 +3,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UI;
 
 
 public class task_editing_window_behavior : MonoBehaviour
@@ -12,7 +13,7 @@ public class task_editing_window_behavior : MonoBehaviour
     public bool minimize;
     public bool maximize;
     public int window_speed;//time it takes in fixed updates(?) for the window to change size fully.
-    public GameObject Unminimizer;
+    public Button Unminimizer;
 
 
     [Header("other")]
@@ -36,13 +37,15 @@ public class task_editing_window_behavior : MonoBehaviour
             transform.SetParent(parent.transform);
             transform.SetAsFirstSibling();
         }
+
+        transform.SetPositionAndRotation(new Vector3(0, 0, transform.position.z), transform.rotation);
     }
 
     public void toggle_minimize()
     {
         minimize = !minimize;
         StartCoroutine(animate_minimize());
-        Unminimizer.SetActive(minimize);
+        Unminimizer.gameObject.SetActive(minimize);
     }
     public void toggle_maximize()
     {
@@ -50,12 +53,7 @@ public class task_editing_window_behavior : MonoBehaviour
         StartCoroutine(animate_maximize());
     }
 
-    public void FixedUpdate()
-    {
-        transform.SetPositionAndRotation(new Vector3(0, 0, transform.position.z), transform.rotation);
 
-
-    }
 
     public IEnumerator animate_minimize()
     {
