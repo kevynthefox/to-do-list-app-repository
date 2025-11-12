@@ -7,7 +7,7 @@ public class task_creation : MonoBehaviour
 {
     public static task_creation current;
 
-    public GameObject basic_task_prefab;
+    //public GameObject basic_task_prefab;
     public List<GameObject> area_tasks_go_in;
     public int current_area;
 
@@ -23,12 +23,13 @@ public class task_creation : MonoBehaviour
 
     public void create_task()
     {
-        var new_task = Instantiate(basic_task_prefab, Vector3.zero, Quaternion.identity);
+        var new_task = Instantiate(object_holder.current.task_prefab, Vector3.zero, Quaternion.identity);
         new_task.transform.SetParent(area_tasks_go_in[current_area].transform); 
         if (parent_task != null)
         {
-            //new_task.transform.SetParent(parent_task.transform); parent_task.GetComponent<task_data>().sub_tasks.Add(new_task); removed b/c you're gonna have an area subtasks go in
-            new_task.GetComponent<task_data>().Place_in_task_list[0] = parent_task.GetComponent<task_data>().sub_tasks.Count;
+            parent_task.GetComponent<task_data>().sub_tasks.Add(new_task);
+            parent_task.GetComponent<task_data>().subtask_tracker();
+            new_task.GetComponent<task_data>().assign_Position_value(0,parent_task.GetComponent<task_data>().sub_tasks.Count);
             new_task.GetComponent<task_data>().parent_task = parent_task;
         }
         new_task.transform.localScale = Vector3.one;

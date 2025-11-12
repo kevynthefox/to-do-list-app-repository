@@ -18,7 +18,9 @@ public class task_editing_window_behavior : MonoBehaviour
 
     [Header("other")]
     public GameObject parent;
+    public GameObject task_I_am_part_of;
     public TextMeshProUGUI limit_displayer;
+    public TextMeshProUGUI parent_displayer;
     public TextMeshProUGUI header;
     public TextMeshProUGUI body;
 
@@ -39,6 +41,16 @@ public class task_editing_window_behavior : MonoBehaviour
         }
 
         transform.SetPositionAndRotation(new Vector3(0, 0, transform.position.z), transform.rotation);
+
+        task_I_am_part_of.GetComponent<task_data>().subtask_tracker();
+        if (task_I_am_part_of.GetComponent<task_data>().parent_task != null)
+        {
+            parent_displayer.text = "> " + task_I_am_part_of.GetComponent<task_data>().parent_task.GetComponent<task_data>().main_textString;
+        }
+        else
+        {
+            parent_displayer.text = null;
+        }
     }
 
     public void toggle_minimize()
@@ -46,6 +58,8 @@ public class task_editing_window_behavior : MonoBehaviour
         minimize = !minimize;
         StartCoroutine(animate_minimize());
         Unminimizer.gameObject.SetActive(minimize);
+
+        task_I_am_part_of.GetComponent<task_data>().subtask_tracker();
     }
     public void toggle_maximize()
     {

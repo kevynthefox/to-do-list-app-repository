@@ -22,10 +22,6 @@ public class task_data : MonoBehaviour
     public TextMeshProUGUI body_editor;
 
     public GameObject editor_window;
-    public GameObject editor_window_backup;
-    public GameObject window_holder;
-    public Button Unminimizer;
-    public Button task_edit_button;
     public bool minimize;
     public bool isOpen;
 
@@ -42,10 +38,21 @@ public class task_data : MonoBehaviour
     public List<int> Place_in_task_list; //use the number in the [] to retrieve the type of list. use the number it spits out as where that task goes in that list.
     //list type(priority sort, etc) reference table:
     /// <summary>
-    /// 
+    /// list 0 = default, unsorted list.
     /// </summary>
     public int typeOf_Subtask; //0 is regular task as a subtask, 1 is comment, 2 is a project(sub project i guess), 3 is a section
     public List<GameObject> sub_tasks;
+    public List<GameObject> completed_subTasks;
+    public List<GameObject> failed_subTasks;
+    
+
+    public GameObject subtask_displayer;
+    public GameObject subtask_completion_displayer;
+    public GameObject subtask_failure_displayer;
+    public TextMeshProUGUI subtask_totalText_displayer;
+    public TextMeshProUGUI bracket;
+    public TextMeshProUGUI subtask_completionText_displayer;
+    public TextMeshProUGUI subtask_failedText_displayer;
 
     void Start()
     {
@@ -77,10 +84,12 @@ public class task_data : MonoBehaviour
     public void updateHeader()
     {
         main_textString = header_editor.text;
+        subtask_tracker();
     }
     public void updateBody()
     {
         descriptionString = body_editor.text;
+        subtask_tracker();
     }
     #region state toggling
     public void toggle_completion()
@@ -90,10 +99,12 @@ public class task_data : MonoBehaviour
             state = 1;
             failure_toggle = false;
             deletion_toggle = false;
+            //parent_task.GetComponent<task_data>().completed_subTasks.Add(this.gameObject);
         }
         else
         {
             state = 0;
+            //parent_task.GetComponent<task_data>().completed_subTasks.Remove(this.gameObject);
         }
         completion_toggle = !completion_toggle;
         toggle_State_appearance();
@@ -105,10 +116,12 @@ public class task_data : MonoBehaviour
             state = 2;
             completion_toggle = false;
             deletion_toggle = false;
+            //parent_task.GetComponent<task_data>().failed_subTasks.Add(this.gameObject);
         }
         else
         {
             state = 0;
+            //parent_task.GetComponent<task_data>().failed_subTasks.Remove(this.gameObject);
         }
         failure_toggle = !failure_toggle;
         toggle_State_appearance();
@@ -120,10 +133,13 @@ public class task_data : MonoBehaviour
             state = 3;
             failure_toggle = false;
             completion_toggle = false;
+            //parent_task.GetComponent<task_data>().sub_tasks.Remove(this.gameObject);
         }
         else
         {
             state = 0;
+            //parent_task.GetComponent<task_data>().sub_tasks.Add(this.gameObject);
+
         }
         deletion_toggle = !deletion_toggle;
         toggle_State_appearance();
@@ -147,11 +163,11 @@ public class task_data : MonoBehaviour
 
     public void force_open()
     {
-        if (editor_window != parent_task.GetComponent<task_data>().editor_window)
-        {
+        /*if (editor_window != parent_task.GetComponent<task_data>().editor_window)
+        {*/
             Debug.Log("force open worked");
             editor_window.GetComponent<task_editing_window_behavior>().toggle_open();
-        }
+        /*}
         else
         {
             Debug.Log("force open failed, trying again");
@@ -167,7 +183,7 @@ public class task_data : MonoBehaviour
             editor_window.transform.localScale = Vector3.one;
             Debug.Log("replacement window fully created");
             force_open();
-        }
+        }*/
     }
 
     #region subtasks
@@ -182,10 +198,82 @@ public class task_data : MonoBehaviour
         //this is going to be for the button that lets you make things into subtasks of other things as if they were sections
         //it's also going to be for making it into the subtask of something when you drag it into it.
     }
-    
-    public void assign_Position_value(int list, int place)
+
+    public void assign_Position_value(int list_list, int place)
     {
-        Place_in_task_list[list] = place;
+        Place_in_task_list[list_list] = place;
+        subtask_tracker();
+    }
+
+    //this will be for when you remove and put back in things like deleted tasks. for now though, you aren't doing that.
+    /*public void move_position(int list_list, int place)
+    {
+        if (parent_task.GetComponent<task_data>().Place_in_task_list[list_list] == 0) //this will be expanded for all lists
+        { 
+            parent_task.GetComponent<task_data>().sub_tasks
+        }
+    }*/
+
+    public void subtask_tracker()
+    {
+        if (sub_tasks.Count > 0)
+        {
+            completed_subTasks.Clear();
+            foreach (GameObject task in sub_tasks)
+            {
+                if (task.GetComponent<task_data>().state == 1)
+                {
+                    completed_subTasks.Add(task);
+                }
+            }
+            failed_subTasks.Clear();
+            foreach (GameObject task in sub_tasks)
+            {
+                if (task.GetComponent<task_data>().state == 2)
+                {
+                    failed_subTasks.Add(task);
+                }
+            }
+
+            subtask_displayer.SetActive(true);
+            if (completed_subTasks.Count > 0)
+            {
+                subtask_completion_displayer.SetActive(true);
+                subtask_completionText_displayer.gameObject.SetActive(true);
+                subtask_completionText_displayer.text = completed_subTasks.Count.ToString();
+            }
+            else
+            {
+                subtask_completion_displayer.SetActive(false);
+                subtask_completionText_displayer.gameObject.SetActive(false);
+            }
+            if (failed_subTasks.Count > 0)
+            {
+                subtask_failure_displayer.SetActive(true);
+                subtask_failedText_displayer.gameObject.SetActive(true);
+                subtask_failedText_displayer.text = failed_subTasks.Count.ToString();
+            }
+            else
+            {
+                subtask_failure_displayer.SetActive(false);
+                subtask_failedText_displayer.gameObject.SetActive(false);
+            }
+
+            if (completed_subTasks.Count > 0 || failed_subTasks.Count > 0)
+            {
+                subtask_totalText_displayer.text = "]/" + sub_tasks.Count.ToString();
+                bracket.gameObject.SetActive(true);
+            }
+            else
+            {
+                subtask_totalText_displayer.text = sub_tasks.Count.ToString();
+                bracket.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            subtask_displayer.SetActive(false);
+        }
     }
 
     #endregion
