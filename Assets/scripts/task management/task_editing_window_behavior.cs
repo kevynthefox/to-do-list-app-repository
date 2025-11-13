@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using TMPro;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
@@ -19,10 +20,19 @@ public class task_editing_window_behavior : MonoBehaviour
     [Header("other")]
     public GameObject parent;
     public GameObject task_I_am_part_of;
+    public GameObject task_I_am_part_of_parent;
     public TextMeshProUGUI limit_displayer;
     public TextMeshProUGUI parent_displayer;
     public TextMeshProUGUI header;
     public TextMeshProUGUI body;
+
+    void Start()
+    {
+        if (task_I_am_part_of.GetComponent<task_data>().parent_task != null)
+        {
+            task_I_am_part_of_parent = task_I_am_part_of.GetComponent<task_data>().parent_task;
+        }  
+    }
 
     public void toggle_open()
     {
@@ -50,6 +60,12 @@ public class task_editing_window_behavior : MonoBehaviour
         else
         {
             parent_displayer.text = null;
+        }
+
+
+        if (task_I_am_part_of_parent != null)
+        {
+            sort_upon_edit_finish();
         }
     }
 
@@ -140,5 +156,14 @@ public class task_editing_window_behavior : MonoBehaviour
     public void limit_display()
     {
         limit_displayer.text = "header: " + header.text.Length + "/540" + ", body: " + body.text.Length + "/5005";
+    }
+
+    public void sort_upon_edit_finish()
+    {
+        if (task_I_am_part_of.GetComponent<task_data>().priority >= 1 && task_I_am_part_of.GetComponent<task_data>().priority <= 8)
+        {
+            //task_I_am_part_of.GetComponent<task_data>().priority_change
+            task_I_am_part_of.transform.parent = task_I_am_part_of_parent.GetComponent<task_data>().sort_areas[task_I_am_part_of.GetComponent<task_data>().priority].transform;
+        }
     }
 }

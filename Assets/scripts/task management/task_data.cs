@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
+using TMPro.EditorUtilities;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class task_data : MonoBehaviour
 {
@@ -39,12 +41,20 @@ public class task_data : MonoBehaviour
     //list type(priority sort, etc) reference table:
     /// <summary>
     /// list 0 = default, unsorted list.
+    /// list 1 is p1
+    /// list 2 is p2
+    /// list 3 is p3
+    /// list 4 is p4
+    /// list 5 is p5
+    /// list 6 is p6
+    /// list 7 is p7
+    /// list 8 is p8
     /// </summary>
     public int typeOf_Subtask; //0 is regular task as a subtask, 1 is comment, 2 is a project(sub project i guess), 3 is a section
     public List<GameObject> sub_tasks;
     public List<GameObject> completed_subTasks;
     public List<GameObject> failed_subTasks;
-    
+
 
     public GameObject subtask_displayer;
     public GameObject subtask_completion_displayer;
@@ -54,10 +64,17 @@ public class task_data : MonoBehaviour
     public TextMeshProUGUI subtask_completionText_displayer;
     public TextMeshProUGUI subtask_failedText_displayer;
 
+    [Header("priority stuff")]
+
+    public int priority; //1-8. 1 is red, 2 is orange, etc. 8 is white and also the default.
+    public TMP_Dropdown priority_changer;
+    public List<GameObject> sort_areas;
+
     void Start()
     {
         main_text.text = main_textString;
         description.text = descriptionString;
+        if (priority == 0) { priority = 8; } //sets the priority to 8 if it is at 0 since 8 is supposed to be the default.
     }
 
 
@@ -165,8 +182,8 @@ public class task_data : MonoBehaviour
     {
         /*if (editor_window != parent_task.GetComponent<task_data>().editor_window)
         {*/
-            Debug.Log("force open worked");
-            editor_window.GetComponent<task_editing_window_behavior>().toggle_open();
+        Debug.Log("force open worked");
+        editor_window.GetComponent<task_editing_window_behavior>().toggle_open();
         /*}
         else
         {
@@ -276,5 +293,45 @@ public class task_data : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region  priority
+    public void priority_change()
+    {
+        priority =  priority_changer.value + 1;
+
+        if (priority == 1)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0, 0);
+        }
+        if (priority == 2)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(1f, .5f, 0);
+        }
+        if (priority == 3)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 0);
+        }
+        if (priority == 4)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(0, 1f, 0);
+        }
+        if (priority == 5)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(0, 0, 1f);
+        }
+        if (priority == 6)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(.5f, 0, 1f);
+        }
+        if (priority == 7)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 0, 1f);
+        }
+        if (priority == 8)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = new Color(1f, 1f, 1f);
+        }
+    }
     #endregion
 }
