@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -2597420201748275355, guid: ae46a9874ed23f1dd9649d7606a5529b, type: 3}
+  m_Sprite: {fileID: -9180528265422929529, guid: 649981f43e363afa998b85dbea6c7509, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -146,7 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2a257dd06d9734e993635614de5362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::task_creation
-  basic_task_prefab: {fileID: 1681320486603941431, guid: 0ba7d9780188a242ea8e4e621260fee7, type: 3}
   area_tasks_go_in:
   - {fileID: 0}
   current_area: 0
