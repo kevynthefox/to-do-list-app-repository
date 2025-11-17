@@ -50,7 +50,7 @@ public class task_data : MonoBehaviour
     /// list 7 is p7
     /// list 8 is p8
     /// </summary>
-    public int typeOf_Subtask; //0 is regular task as a subtask, 1 is comment, 2 is a project(sub project i guess), 3 is a section
+    public int typeOf_Subtask; //0 is regular task as a subtask, 1 is comment, 2 is a project(possibly even a sub project i guess), 3 is a section
     public List<GameObject> sub_tasks;
     public List<GameObject> completed_subTasks;
     public List<GameObject> failed_subTasks;
@@ -334,4 +334,5 @@ public class task_data : MonoBehaviour
         }
     }
     #endregion
+
 }
