@@ -9,6 +9,7 @@ public class object_holder : MonoBehaviour
     public GameObject section_prefab;
     public GameObject Reference_project_object;
     public GameObject Reference_project_button;
+    public GameObject comment_prefab;
 
     public void Awake()
     {

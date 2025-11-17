@@ -367,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4796120508813661277, guid: bf6a5d56654c19360bda99fbdffd2674, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6491383388931867106, guid: bf6a5d56654c19360bda99fbdffd2674, type: 3}
       propertyPath: m_margin.w

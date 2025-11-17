@@ -620,6 +620,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2342234272521865862}
     m_Modifications:
     - target: {fileID: 1488910552813937706, guid: 1870dc60c2bb1475ba1e77acd3f9d38d, type: 3}
+      propertyPath: typeOf_Subtask
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1488910552813937706, guid: 1870dc60c2bb1475ba1e77acd3f9d38d, type: 3}
       propertyPath: 'area_tasks_go_in.Array.data[0]'
       value: 
       objectReference: {fileID: 1100878964221522977}
@@ -633,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7840900785206868631, guid: 1870dc60c2bb1475ba1e77acd3f9d38d, type: 3}
       propertyPath: m_Name
-      value: add task button
+      value: add section button
       objectReference: {fileID: 0}
     - target: {fileID: 7871351099039370292, guid: 1870dc60c2bb1475ba1e77acd3f9d38d, type: 3}
       propertyPath: m_Pivot.x

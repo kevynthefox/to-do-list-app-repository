@@ -82,6 +82,7 @@ public class task_creation : MonoBehaviour
         task_add_button.GetComponent<task_creation>().area_tasks_go_in.Add(new_project.GetComponent<project_data>().area_tasks_go_in);
         project_manager.current.projects.Add(new_project);
         project_manager.current.project_buttons.Add(new_button);
+        task_list.Add(new_project);
         //new_button.GetComponent<Button>().onClick.AddListener(new_project.GetComponent<project_data>().set_as_active_project);
         //new_button.GetComponent<Button>().onClick.AddListener(new_project.GetComponent<project_data>().set_as_active_project);
         //i am instead going to simply 'strip' the button from the project because it is too confusing to set its action
@@ -93,7 +94,16 @@ public class task_creation : MonoBehaviour
         new_button.transform.SetParent(area_tasks_go_in[current_area].transform);
         new_button.transform.localScale = Vector3.one;
         new_button.transform.localPosition = new Vector3(new_button.transform.localPosition.x,new_button.transform.localPosition.y,0f);
+        task_list.Add(new_button);
+    }
 
+    public void create_new_comment()
+    {
+        var new_comment = Instantiate(object_holder.current.comment_prefab, Vector3.zero, Quaternion.identity);
+        new_comment.transform.SetParent(area_tasks_go_in[current_area].transform);
+        new_comment.transform.localScale = Vector3.one;
+        new_comment.transform.localPosition = new Vector3(new_comment.transform.localPosition.x,new_comment.transform.localPosition.y,0f);
+        task_list.Add(new_comment);
     }
 
 }
