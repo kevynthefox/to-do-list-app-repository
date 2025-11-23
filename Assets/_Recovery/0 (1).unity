@@ -604,6 +604,8 @@ MonoBehaviour:
   - {fileID: 2169112984493797373}
   current_area: 0
   add_task_button: {fileID: 2004452724}
+  days: []
+  day_lists: []
 --- !u!114 &609577206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1446,6 +1448,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2311923411279703540, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4140231961869565911, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
