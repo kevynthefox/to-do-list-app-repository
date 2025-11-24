@@ -12,7 +12,10 @@ public class object_holder : MonoBehaviour
     public GameObject Reference_project_button;
     public GameObject comment_prefab;
 
-    public List<toDo_task> global_task_list;
+    //public toDo_task toDo_Task_reference;
+    //public List<toDo_task> global_task_list;
+    public List<GameObject> global_task_list;
+
 
     public void Awake()
     {

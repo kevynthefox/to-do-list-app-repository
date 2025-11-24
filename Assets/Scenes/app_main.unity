@@ -604,6 +604,7 @@ MonoBehaviour:
   - {fileID: 2169112984493797373}
   current_area: 0
   add_task_button: {fileID: 2004452724}
+  days: []
 --- !u!114 &609577206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +622,7 @@ MonoBehaviour:
   Reference_project_object: {fileID: 5179876473585666116, guid: 474a78c721113d7bf8b581fd687b5179, type: 3}
   Reference_project_button: {fileID: 1283015208191733353, guid: 449bb4972f48b899aa6bbd10de6dd639, type: 3}
   comment_prefab: {fileID: 8853066036278415632, guid: 42b3ef3e415bfe6679225cc8ff1e3724, type: 3}
+  global_task_list: []
 --- !u!114 &609577207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,6 +1450,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2964691536041384945, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4140231961869565911, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
       propertyPath: m_Name
       value: today
@@ -1535,13 +1549,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2312458514819688217, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5179876473825575477}
   m_SourcePrefab: {fileID: 100100000, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
 --- !u!1 &5179876473825575476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2312458514819688217, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
   m_PrefabInstance: {fileID: 3611179285191818693}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5179876473825575477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5179876473825575476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dc0b52ebfc2461c88d4361150e2ee8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::day_data
+  my_date: oct28th
+  day_content: {fileID: 1100878963995278929}
+  tasks_for_today: []
+  lists:
+  - priority_sort
+  display_list:
+  - {fileID: 0}
+  current_list: 0
+  trigger_bc_imtoolasyforbutton: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

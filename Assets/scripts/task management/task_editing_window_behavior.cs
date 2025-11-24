@@ -55,7 +55,7 @@ public class task_editing_window_behavior : MonoBehaviour
         task_I_am_part_of.GetComponent<task_data>().subtask_tracker();
         if (task_I_am_part_of.GetComponent<task_data>().parent_task != null)
         {
-            parent_displayer.text = "> " + task_I_am_part_of.GetComponent<task_data>().parent_task.GetComponent<task_data>().main_textString;
+            parent_displayer.text = "> " + task_I_am_part_of.GetComponent<task_data>().parent_task.GetComponent<task_data>().header_textString;
         }
         else
         {

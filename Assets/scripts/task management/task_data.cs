@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 //using TMPro.EditorUtilities;
@@ -12,11 +13,11 @@ using UnityEngine.UIElements;
 public class task_data : MonoBehaviour
 {
     [Header("text")]
-    public TextMeshProUGUI main_text;
+    public TextMeshProUGUI header_text;
     public TextMeshProUGUI description;
 
 
-    public string main_textString;
+    public string header_textString;
     public string descriptionString;
 
     [Header("edit window")]
@@ -37,6 +38,7 @@ public class task_data : MonoBehaviour
 
     [Header("subtask stuff")]
     public GameObject parent_task;
+    //public toDo_task self_data_representation; // the data representation of this task.
     public List<int> Place_in_task_list; //use the number in the [] to retrieve the type of list. use the number it spits out as where that task goes in that list.
     //list type(priority sort, etc) reference table:
     /// <summary>
@@ -70,17 +72,50 @@ public class task_data : MonoBehaviour
     public TMP_Dropdown priority_changer;
     public List<GameObject> sort_areas;
 
+    [Header("date stuff")]
+    //public bool wee;
+    public string my_date;
+     
+    public List<string> positions_obj_name; //get the index of the object you are trying to retrieve and that index will be the position in the list(vertically not horizontally) that you need to get the thing.
+    public List<string> positions_1; 
+    public List<string> positions_2; 
+    public List<string> positions_3;
+    public List<string> positions_4;
+    /// <summary>
+    /// this stores the positions of each task in each list. it does this like this "[task 1: pos 3], [task 2: pos 5]"
+    /// revision: the first digit is stored in pos 1, second is stored in pos 2. it would work as follows:
+    /// spot in the list 1:(today for example)
+    /// 01
+    /// 03
+    /// 02
+    /// 13
+    /// left column would be smart sort as an example, and right would be priority or whatever.
+    /// spot in the list 2: ()
+    /// 22
+    /// 36
+    /// 54
+    /// 19
+    /// output at position 1 is 01, output at position 2 is 1323.
+    /// it is HIGHLY unlikely that they will even have more than 100 tasks in a day. but if they are just using them as notes throughout the day or are doing stuff
+    /// for a business, then they might have a few hundred tasks. anything over 1000 is extremely unlikely, if you have over 9999 tasks then i am sorry, but you
+    /// probably also are one of those people who buys 50 watermelons and must fit them within the volume of their trunk. in otherwords, you probably do not exist. :p
+    /// </summary>
     void Start()
     {
-        main_text.text = main_textString;
+        header_text.text = header_textString;
         description.text = descriptionString;
         if (priority == 0) { priority = 8; } //sets the priority to 8 if it is at 0 since 8 is supposed to be the default.
+
+        ////self_data_representation = Instantiate(object_holder.current.toDo_Task_reference, Vector3.zero, Quaternion.identity);
+        //sets the self representation in the data to be the last one in the list(which is where the one we want is)
+        //self_data_representation = object_holder.current.global_task_list[object_holder.current.global_task_list.Count -1];
+        ///finish after you make task into
     }
 
 
     void Update()
     {
-        main_text.text = main_textString;
+        header_text.text = header_textString;
         description.text = descriptionString;
 
         minimize = editor_window.GetComponent<task_editing_window_behavior>().minimize;
@@ -88,19 +123,19 @@ public class task_data : MonoBehaviour
 
         if ((minimize == false) && (isOpen == true))
         {
-            main_text.gameObject.SetActive(false);
+            header_text.gameObject.SetActive(false);
             description.gameObject.SetActive(false);
         }
         else
         {
-            main_text.gameObject.SetActive(true);
+            header_text.gameObject.SetActive(true);
             description.gameObject.SetActive(true);
         }
     }
 
     public void updateHeader()
     {
-        main_textString = header_editor.text;
+        header_textString = header_editor.text;
         subtask_tracker();
     }
     public void updateBody()
@@ -335,4 +370,11 @@ public class task_data : MonoBehaviour
     }
     #endregion
 
+    #region data
+
+    
+
+    #endregion
+
 }
+

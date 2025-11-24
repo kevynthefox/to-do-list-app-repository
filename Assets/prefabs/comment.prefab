@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 6504209862155833907}
   m_Layer: 5
   m_Name: comment
-  m_TagString: Untagged
+  m_TagString: toDo_comment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -584,7 +584,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Toggleable_Edit_header
   text_editable: {fileID: 2815493123180968688}
-  text_uneditable: {fileID: 0}
   text_editable_: 1
 --- !u!114 &6504209862155833907
 MonoBehaviour:

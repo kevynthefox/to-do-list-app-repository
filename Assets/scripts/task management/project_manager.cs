@@ -15,8 +15,12 @@ public class project_manager : MonoBehaviour
 
     [Header("date lists")] //things like "today", "upcoming"
     public List<string> days; // search for the day you are looking for and then 
-    public List<toDo_date> day_lists; //?
-
+    //public List<toDo_date> day_lists; //?
+    //public List<DateTime> day_lists; //?
+    /// <summary>
+    /// actually instead of that, how about we just get all of the tasks that have a thing that match the certain day
+    /// it would work like: "find all tasks, if task has this variable set to this day, it goes in this list"
+    /// </summary>
 
     
     public void Awake()
@@ -49,10 +53,14 @@ public class project_manager : MonoBehaviour
     }
 
     
+
+    
 }
 ///with all of this you should be able to do things like "get this task in [project]/[section]/[task]"?
 /// the toDo_ prefix is to distinguish from potential conflicts with the engine itself. like, if unity renders things in 'tasks' or whatever.
 /// 
+/// 
+/*
 [Serializable]
 public class toDo_project
 {
@@ -99,9 +107,10 @@ public class toDo_task
 
     public void assign_info()
     {
-        ////parent_task = self.GetComponent<task_data>().parent_task;
-        /// finish this. you will need to do something with retrieving the parent task based on the gameobject,
-        ///  or just assigning it somehow, potentially by getting notified from the parent task that a new task is being created.
+        parent_task = self.GetComponent<task_data>().parent_task.GetComponent<task_data>().self_data_representation;
+        ///you now have a way to add the parent task.
+        ///now you just need a system to set the self data representation.
+        ///you could probably just have a void that creates a new task in the global list and then sets its self representation to the latest task in the list?
         object_holder.current.global_task_list.Add(this);
         position_in_global_task_list = object_holder.current.global_task_list.IndexOf(this);
 
@@ -122,7 +131,7 @@ public class toDo_task
         // wait actually we shouldn't need to update any info on the list end, the info should just update right? like, if you have a gameobject referenced by 2 lists,
         //when the object updates, both lists get updated right?
         */
-
+/*
         header = self.GetComponent<task_data>().main_textString;
         body = self.GetComponent<task_data>().descriptionString;
         priority = self.GetComponent<task_data>().priority;
@@ -134,6 +143,7 @@ public class toDo_task
     }
 
 }
+/*
 
 [Serializable]
 
@@ -173,7 +183,14 @@ public class toDo_date
     {
         foreach (toDo_task task in tasks_for_today)
         {
-            string index_p1 = positions_1[lists[current_list]]+positions_2[lists[current_list]]+positions_3[lists[current_list]]+positions_4[lists[current_list]];
+            //this part makes sure it grabs only the correct character. task 1 is stored as the first digit, 2 as the second. for task 1 grab the first digit of each.
+            string a = positions_1[lists[current_list]].Substring(0 +tasks_for_today.IndexOf(task),1 +tasks_for_today.IndexOf(task));
+            string b = positions_2[lists[current_list]].Substring(0 +tasks_for_today.IndexOf(task),1 +tasks_for_today.IndexOf(task));
+            string c = positions_3[lists[current_list]].Substring(0 +tasks_for_today.IndexOf(task),1 +tasks_for_today.IndexOf(task));
+            string d = positions_4[lists[current_list]].Substring(0 +tasks_for_today.IndexOf(task),1 +tasks_for_today.IndexOf(task));
+            //
+
+            string index_p1 = a+b+c+d;
             int index_p2 = int.Parse(index_p1);
 
             Debug.Log(task.header + " pos1: " + positions_1[lists[current_list]] + " pos2: " + positions_2[lists[current_list]]
@@ -182,9 +199,12 @@ public class toDo_date
 
             display_list.Insert(index_p2, task);
         }
+
         foreach (toDo_task task in display_list)
         {
             task.self.transform.parent = self_content.transform;
         }
     }
 }
+
+*/

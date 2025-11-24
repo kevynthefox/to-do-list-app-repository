@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 593509864310168782}
   m_Layer: 5
   m_Name: section
-  m_TagString: Untagged
+  m_TagString: toDo_section
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

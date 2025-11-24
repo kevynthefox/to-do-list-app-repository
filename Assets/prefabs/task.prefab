@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5130984188281879202}
   m_Layer: 5
   m_Name: task
-  m_TagString: Untagged
+  m_TagString: toDo_task
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -290,9 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5603d78bbd3736f479f3faee6d2afe76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::task_data
-  main_text: {fileID: 2596458928436547797}
+  header_text: {fileID: 2596458928436547797}
   description: {fileID: 1659436190273222184}
-  main_textString: 
+  header_textString: 
   descriptionString: 
   header_editor: {fileID: 1547839963503646172}
   body_editor: {fileID: 2560049911548975890}
@@ -333,6 +333,12 @@ MonoBehaviour:
   - {fileID: 3800184323669295281}
   - {fileID: 4180624023203832311}
   - {fileID: 6725421173961206194}
+  my_date: 
+  positions_obj_name: []
+  positions_1: []
+  positions_2: []
+  positions_3: []
+  positions_4: []
 --- !u!61 &5130984188281879202
 BoxCollider2D:
   m_ObjectHideFlags: 0

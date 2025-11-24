@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 3149513138423685832}
   m_Layer: 5
   m_Name: task view area
-  m_TagString: Untagged
+  m_TagString: toDo_project
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,6 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::project_data
   area_tasks_go_in: {fileID: 1100878964221522977}
   area_selection_button: {fileID: 1140557827022867429}
+  list_of_tasks: []
 --- !u!1 &6285978441339485382
 GameObject:
   m_ObjectHideFlags: 0
