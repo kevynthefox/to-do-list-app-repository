@@ -9,22 +9,7 @@ public class day_data : MonoBehaviour
     public GameObject day_content;
     public List<GameObject> tasks_for_today;
     public List<string> lists;
-    /*public List<string> positions_1; 
-    public List<string> positions_2; 
-    public List<string> positions_3;
-    public List<string> positions_4;*/
-    /// <summary>
-    /// this stores the positions of each task in each list. it does this like this "[task 1: pos 3], [task 2: pos 5]"
-    /// revision: the first digit is stored in pos 1, second is stored in pos 2. it would work as follows:
-    /// 01
-    /// 03
-    /// 02
-    /// 13
-    /// output at position 1 is 01, output at position 2 is 1323.
-    /// it is HIGHLY unlikely that they will even have more than 100 tasks in a day. but if they are just using them as notes throughout the day or are doing stuff
-    /// for a business, then they might have a few hundred tasks. anything over 1000 is extremely unlikely, if you have over 9999 tasks then i am sorry, but you
-    /// probably also are one of those people who buys 50 watermelons and must fit them within the volume of their trunk. in otherwords, you probably do not exist. :p
-    /// </summary>
+    
     public List<GameObject> display_list;
     public int current_list;
     public bool trigger_bc_imtoolasyforbutton;
