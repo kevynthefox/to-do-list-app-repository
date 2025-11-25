@@ -65,6 +65,42 @@ public class task_creation : MonoBehaviour
         new_task.transform.localPosition = new Vector3(new_task.transform.localPosition.x, new_task.transform.localPosition.y, 0f);
         new_task.GetComponent<task_data>().force_open();
         task_list.Add(new_task);
+        object_holder.current.global_task_list.Add(new_task);
+        if (area_tasks_go_in[current_area].transform.parent.transform.parent.TryGetComponent<project_data>( out project_data pdata))
+        {
+            pdata.list_of_tasks.Add(new_task);
+            
+
+        
+            string p = pdata.list_of_tasks.Count.ToString("D4");
+
+            /*if (pdata.list_of_tasks.IndexOf(this.gameObject) < 1000)
+            {
+                int temp = int.Parse(p);
+                temp.ToString("D1");
+            }
+            if (pdata.list_of_tasks.IndexOf(this.gameObject) < 100)
+            {
+                int temp = int.Parse(p);
+                temp.ToString("D2");
+            }
+            if (pdata.list_of_tasks.IndexOf(this.gameObject) < 10)
+            {
+                int temp = int.Parse(p);
+                temp.ToString("D3");
+            }*/
+
+            Debug.Log(p);
+            //string a = p.s
+
+            new_task.GetComponent<task_data>().positions_obj_name.Add(pdata.project_name);
+            new_task.GetComponent<task_data>().positions_1.Add(p.Substring(0,1));
+            new_task.GetComponent<task_data>().positions_2.Add(p.Substring(1,1));
+            new_task.GetComponent<task_data>().positions_3.Add(p.Substring(2,1));
+            new_task.GetComponent<task_data>().positions_4.Add(p.Substring(3,1));
+        
+            
+        }
     }
 
     public void create_new_project()

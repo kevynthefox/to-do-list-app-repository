@@ -251,9 +251,11 @@ public class task_data : MonoBehaviour
         //it's also going to be for making it into the subtask of something when you drag it into it.
     }
 
-    public void assign_Position_value(int list_list, int place)
+    public void assign_Position_value(int list_list, int place)//,GameObject source_obj,string source_name)
     {
         Place_in_task_list[list_list] = place;
+
+        
         subtask_tracker();
     }
 

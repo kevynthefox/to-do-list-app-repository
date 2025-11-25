@@ -1462,6 +1462,34 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5179876473825575477}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: activate_day
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: day_data, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4140231961869565911, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
       propertyPath: m_Name
       value: today
@@ -1576,10 +1604,10 @@ MonoBehaviour:
   tasks_for_today: []
   lists:
   - priority_sort
+  - manual_sort
   display_list:
   - {fileID: 0}
   current_list: 0
-  trigger_bc_imtoolasyforbutton: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
