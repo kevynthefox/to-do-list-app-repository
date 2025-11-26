@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 //using TMPro.EditorUtilities;
 using Unity.Mathematics;
@@ -373,7 +374,44 @@ public class task_data : MonoBehaviour
     #endregion
 
     #region data
+    public void position_data_changer(string obj,int current_list,int new_pos_1,int new_pos_2,int new_pos_3,int new_pos_4)
+    {
+        string a = new_pos_1.ToString();
+        string b = new_pos_2.ToString();
+        string c = new_pos_3.ToString();
+        string d = new_pos_4.ToString();
+        Debug.Log("c" + c);
+        Debug.Log("d" + d);
 
+        int id = positions_obj_name.IndexOf(obj);
+        
+        if (positions_1[id].Count() >= current_list + 1)
+        {
+            positions_1[id].Insert(current_list,a);
+            positions_2[id].Insert(current_list,b);
+            positions_3[id].Insert(current_list,c);
+            positions_4[id].Insert(current_list,d);
+            Debug.Log("was greater than or equal to current list. changing column values");
+        }
+
+        //adds another sorting method if that method isn't already in the list.
+        if (positions_1[id].Count() < current_list + 1)
+        {
+            positions_3[id] = positions_1[id] + c;//I do not know why, but having it be 3,4,1,2 instead of 1,2,3,4 fixes the issue where there are too many numbers
+            positions_4[id] = positions_1[id] + d;
+            positions_1[id] = positions_1[id] + a;
+            positions_2[id] = positions_2[id] + b;
+            
+            Debug.Log("was less than current list. adding next column");
+        }
+        //if that sorting method is in the list, you can change the part you are trying to change.
+        
+        Debug.Log("positions_1[id].Count(): " + positions_1[id].Count());
+        /*if ( positions_1[id].Count() != current_list)
+        {
+            position_data_changer(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4);
+        }*/
+    }
     
 
     #endregion

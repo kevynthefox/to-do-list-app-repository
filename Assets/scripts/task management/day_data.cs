@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class day_data : MonoBehaviour
     
     public List<GameObject> display_list;
     public int current_list;
+    public int method_exception_count;
     /*public bool trigger_bc_imtoolasyforbutton;
 
     void Update()
@@ -64,7 +66,7 @@ public class day_data : MonoBehaviour
                 int index_of_this_list_in_task = task_.positions_obj_name.IndexOf(my_date/* + "_" +lists[current_list]*/);//example: october25th smart sort //the list part is already handeled by the other digits in the string i thnk.
                 //this part makes sure it grabs only the correct character. task 1 is stored as the first digit, 2 as the second. for task 1 grab the first digit of each.
                 
-                int startup_val = 0;
+                /*int startup_val = 0;
                 if (current_list == 0)
                 {
                     startup_val = 1;
@@ -72,12 +74,28 @@ public class day_data : MonoBehaviour
                 else
                 {
                     startup_val = 0;
+                }*/
+
+                if (task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count() < current_list+1)
+                {
+                    string Mec = method_exception_count.ToString("D4");
+                    Debug.Log("mec" + Mec);
+                    int Mec_a = int.Parse(Mec.Substring(0, 1));
+                    int Mec_b = int.Parse(Mec.Substring(1, 1));
+                    int Mec_c = int.Parse(Mec.Substring(2, 1));
+                    int Mec_d = int.Parse(Mec.Substring(3, 1));
+                    
+                    task_.position_data_changer(my_date,current_list,Mec_a,Mec_b,Mec_c,Mec_d);
+                    
+                    method_exception_count++;
                 }
-                
-                string a = task_.positions_1[index_of_this_list_in_task].Substring(0 +current_list,startup_val +current_list);
-                string b = task_.positions_2[index_of_this_list_in_task].Substring(0 +current_list,startup_val +current_list);
-                string c = task_.positions_3[index_of_this_list_in_task].Substring(0 +current_list,startup_val +current_list);
-                string d = task_.positions_4[index_of_this_list_in_task].Substring(0 +current_list,startup_val +current_list);
+                Debug.Log(task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count());
+
+
+                string a = task_.positions_1[index_of_this_list_in_task].Substring(0 +current_list,1);//startup_val +current_list);
+                string b = task_.positions_2[index_of_this_list_in_task].Substring(0 +current_list,1);//startup_val +current_list);
+                string c = task_.positions_3[index_of_this_list_in_task].Substring(0 +current_list,1);//startup_val +current_list);
+                string d = task_.positions_4[index_of_this_list_in_task].Substring(0 +current_list,1);//startup_val +current_list);
                 //
 
                 string index_p1 = a+b+c+d;
