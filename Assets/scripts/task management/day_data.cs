@@ -79,7 +79,7 @@ public class day_data : MonoBehaviour
                 if (task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count() < current_list+1)
                 {
                     string Mec = method_exception_count.ToString("D4");
-                    Debug.Log("mec" + Mec);
+                    //Debug.Log("mec" + Mec);
                     int Mec_a = int.Parse(Mec.Substring(0, 1));
                     int Mec_b = int.Parse(Mec.Substring(1, 1));
                     int Mec_c = int.Parse(Mec.Substring(2, 1));
@@ -89,7 +89,7 @@ public class day_data : MonoBehaviour
                     
                     method_exception_count++;
                 }
-                Debug.Log(task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count());
+                //Debug.Log(task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count());
 
 
                 string a = task_.positions_1[index_of_this_list_in_task].Substring(0 +current_list,1);//startup_val +current_list);
@@ -101,8 +101,8 @@ public class day_data : MonoBehaviour
                 string index_p1 = a+b+c+d;
                 
 
-                Debug.Log(task_.header_textString + " " + task_.positions_obj_name[index_of_this_list_in_task] + " pos1: " + a + " pos2: " + b
-                + " pos3: " + c + " pos4: " + d + " full pos: " + index_p1);
+                /*Debug.Log(task_.header_textString + " " + task_.positions_obj_name[index_of_this_list_in_task] + " pos1: " + a + " pos2: " + b
+                + " pos3: " + c + " pos4: " + d + " full pos: " + index_p1);*/
 
                 int index_p2 = int.Parse(index_p1);
 

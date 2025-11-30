@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -101,6 +102,14 @@ public class task_data : MonoBehaviour
     /// for a business, then they might have a few hundred tasks. anything over 1000 is extremely unlikely, if you have over 9999 tasks then i am sorry, but you
     /// probably also are one of those people who buys 50 watermelons and must fit them within the volume of their trunk. in otherwords, you probably do not exist. :p
     /// </summary>
+
+    [Header("animation")]
+    //public Rigidbody2D rb;
+    public float move_speed;
+    public GameObject targ;
+    public GameObject targ_intermediate;
+    public bool intermediate;
+    
     void Start()
     {
         header_text.text = header_textString;
@@ -380,8 +389,8 @@ public class task_data : MonoBehaviour
         string b = new_pos_2.ToString();
         string c = new_pos_3.ToString();
         string d = new_pos_4.ToString();
-        Debug.Log("c" + c);
-        Debug.Log("d" + d);
+        //Debug.Log("c" + c);
+        //Debug.Log("d" + d);
 
         int id = positions_obj_name.IndexOf(obj);
         
@@ -391,7 +400,7 @@ public class task_data : MonoBehaviour
             positions_2[id].Insert(current_list,b);
             positions_3[id].Insert(current_list,c);
             positions_4[id].Insert(current_list,d);
-            Debug.Log("was greater than or equal to current list. changing column values");
+            //Debug.Log("was greater than or equal to current list. changing column values");
         }
 
         //adds another sorting method if that method isn't already in the list.
@@ -402,19 +411,219 @@ public class task_data : MonoBehaviour
             positions_1[id] = positions_1[id] + a;
             positions_2[id] = positions_2[id] + b;
             
-            Debug.Log("was less than current list. adding next column");
+            //Debug.Log("was less than current list. adding next column");
         }
         //if that sorting method is in the list, you can change the part you are trying to change.
         
-        Debug.Log("positions_1[id].Count(): " + positions_1[id].Count());
-        /*if ( positions_1[id].Count() != current_list)
+        //Debug.Log("positions_1[id].Count(): " + positions_1[id].Count());
+        if ( positions_1[id].Count() != current_list + 1)
         {
-            position_data_changer(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4);
-        }*/
+            //position_data_changer(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4); Debug.Log("redoing the data change");
+            repeat_pos_data_change(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4);
+        }
+    }
+    
+    public void repeat_pos_data_change(string a, int b,int c,int d, int e,int f)
+    {
+        //yield return new WaitForSeconds(0.1f);
+        position_data_changer(a,b,c,d,e,f);
+        //Debug.Log("redoing the pos data change");
     }
     
 
     #endregion
 
+    #region animation
+    
+
+    public void start_animaiton()//bool square_or_natural,bool xfir_yfir,GameObject objective_1,GameObject objective_2)
+    {
+        turn_on_for_animating_purposes();
+        StartCoroutine(seek(false,false,targ_intermediate,targ));//square_or_natural, xfir_yfir, objective_1, objective_2));
+    }
+
+    public void turn_on_for_animating_purposes()
+    {
+        transform.SetParent(object_holder.current.transform);
+        this.gameObject.SetActive(true);
+        transform.SetAsLastSibling();
+    }
+
+    public IEnumerator seek(bool square_or_natural,bool xfir_yfir,GameObject objective_1,GameObject objective_2)
+    {
+        GameObject current_objective;
+        bool initial = true;
+        float initial_dir_x = 420420;
+        float initial_dir_y = -6969;
+
+        while (time_controller.current.starter == true)
+        {
+            if (intermediate == true)
+            {
+                current_objective = objective_1;
+            }
+            else
+            {
+                current_objective = objective_2;
+                initial = true;
+            }
+
+            if (square_or_natural == true)
+            {
+                
+                transform.localPosition = Vector2.MoveTowards(transform.localPosition,current_objective.transform.localPosition,move_speed * Time.deltaTime);
+                
+            }
+            else
+            {
+                float Direction_x = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                float Direction_y = Mathf.Sign(current_objective.transform.localPosition.y - transform.localPosition.y);
+                if (Mathf.Abs(current_objective.transform.localPosition.x - transform.localPosition.x) < 1)
+                {
+                    Direction_x = 0;
+                }
+                if (Mathf.Abs(current_objective.transform.localPosition.y - transform.localPosition.y) < 1)
+                {
+                    Direction_y = 0;
+                }
+                
+                if (initial == true)
+                {
+                    initial_dir_x = Direction_x;
+                    initial_dir_y = Direction_y;
+                    initial = false;
+                }
+                //Debug.Log(initial_dir_y);
+                Debug.Log("dir y: " + Direction_y);
+                Debug.Log("dir x: " + Direction_x);
+                if (xfir_yfir == true)
+                {
+                    
+                    if (initial_dir_y > 0)
+                    {
+                        if (0 < Direction_y)
+                        {
+                            
+                            Vector3 MovePos = new Vector3(
+                                transform.position.x,
+                                transform.position.y + Direction_y * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                                transform.position.z
+                            );
+                            transform.position = MovePos;
+                        }
+                        if (0 == Direction_y)
+                        {
+                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                            Vector3 MovePos = new Vector3(
+                                transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                                transform.position.y,
+                                transform.position.z
+                            );
+                            if (0 != Direction_x)
+                            {
+                                transform.position = MovePos;
+                            }
+                            else
+                            {
+                                yield return new WaitForSeconds(1f);
+                                intermediate = false;
+                            }
+                        }
+                        
+                    }
+                    if (initial_dir_y < 0)
+                    {
+                        if (0 > Direction_y)
+                        {
+                            
+                            Vector3 MovePos = new Vector3(
+                                transform.position.x,
+                                transform.position.y + Direction_y * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                                transform.position.z
+                            );
+                            transform.position = MovePos;
+                        }
+                        
+                    }
+                    
+                    if (0 == Direction_y)
+                    {
+                        //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                        Vector3 MovePos = new Vector3(
+                            transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                            transform.position.y,
+                            transform.position.z
+                        );
+                        if (0 != Direction_x)
+                        {
+                            transform.position = MovePos;
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(1f);
+                            intermediate = false;
+                        }
+                    }
+                
+                    
+                }
+                else
+                {
+                    if (initial_dir_x > 0)
+                    {
+                        if (0 < Direction_x)
+                        {
+                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                            Vector3 MovePos = new Vector3(
+                                transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                                transform.position.y,
+                                transform.position.z
+                            );
+                            transform.position = MovePos;
+                        }
+                        
+                    }
+                    if (initial_dir_x < 0)
+                    {
+                        if (0 > Direction_x)
+                        {
+                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                            Vector3 MovePos = new Vector3(
+                                transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                                transform.position.y,
+                                transform.position.z
+                            );
+                            transform.position = MovePos;
+                        }
+                        
+                    }
+                    if (0 == Direction_x)
+                    {
+                        //float Direction = Mathf.Sign(current_objective.transform.localPosition.y - transform.localPosition.y);
+                        Vector3 MovePos = new Vector3(
+                            transform.position.x,
+                            transform.position.y + Direction_y * move_speed * Time.deltaTime, //MoveTowards on 1 axis
+                            transform.position.z
+                        );
+                        if (0 != Direction_y)
+                        {
+                            transform.position = MovePos;
+                        }
+                        else
+                        {
+                            yield return new WaitForSeconds(1f);
+                            intermediate = false;
+                        }
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(.01f);
+        }
+
+    }
+    
+
+    #endregion
 }
 

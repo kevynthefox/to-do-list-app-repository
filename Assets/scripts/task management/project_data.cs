@@ -82,8 +82,8 @@ public class project_data : MonoBehaviour
                 string index_p1 = a+b+c+d;
                 
 
-                Debug.Log(task_.header_textString + " " + task_.positions_obj_name[index_of_this_list_in_task] + " pos1: " + a + " pos2: " + b
-                + " pos3: " + c + " pos4: " + d + " full pos: " + index_p1);
+                /*Debug.Log(task_.header_textString + " " + task_.positions_obj_name[index_of_this_list_in_task] + " pos1: " + a + " pos2: " + b
+                + " pos3: " + c + " pos4: " + d + " full pos: " + index_p1);*/
 
                 int index_p2 = int.Parse(index_p1);
 
