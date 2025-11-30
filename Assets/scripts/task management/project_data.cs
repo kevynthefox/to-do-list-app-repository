@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class project_data : MonoBehaviour
 {
@@ -58,7 +60,11 @@ public class project_data : MonoBehaviour
                 {
                     startup_val = 0;
                 }*/
-
+                task_.position_current = task_.positions_obj_name.IndexOf(project_name);
+                if (task_.position_button_refList.Contains(area_selection_button) == false)
+                {
+                    task_.position_button_refList.Add(area_selection_button);
+                }
                 if (task_.positions_1[task_.positions_obj_name.IndexOf(project_name)].Count() < current_list+1)
                 {
                     string Mec = method_exception_count.ToString("D4");
@@ -68,7 +74,7 @@ public class project_data : MonoBehaviour
                     int Mec_c = int.Parse(Mec.Substring(2, 1));
                     int Mec_d = int.Parse(Mec.Substring(3, 1));
                     
-                    task_.position_data_changer(project_name,current_list,Mec_a,Mec_b,Mec_c,Mec_d);
+                    task_.position_data_changer(project_name,current_list,Mec_a,Mec_b,Mec_c,Mec_d,this.gameObject);
                     
                     method_exception_count++; 
                 }
@@ -109,6 +115,24 @@ public class project_data : MonoBehaviour
             {
                 task.transform.SetParent(area_tasks_go_in.transform);
                 task.transform.localPosition = Vector3.zero;
+                if (settings_controller.current.animate == true)
+                {
+                    if (task.TryGetComponent<task_data>(out task_data task_))
+                    {
+                        area_tasks_go_in.GetComponent<VerticalLayoutGroup>().enabled = false;
+                        
+                        var blank = Instantiate(object_holder.current.blank_target_object_reference,Vector3.zero,quaternion.identity);
+                        blank.transform.SetParent(area_tasks_go_in.transform);
+                        blank.transform.SetLocalPositionAndRotation(task.transform.localPosition,quaternion.identity);
+                        //blank.transform.SetParent(object_holder.current.mock_for_animation.transform.GetChild(0).transform.GetChild(0).transform);//sets it to the content of the mock for animating.
+                        //this should set the blank to the same position in world space as the task.
+                        //Debug.Log("button position: " + task.GetComponent<task_data>().position_obj_refList[task.GetComponent<task_data>().position_current].GetComponent<project_data>().area_selection_button.transform.position);
+                        //var blank2 = Instantiate(object_holder.current.blank_target_object_reference,task_.position_button_refList[task_.position_current].transform.position,quaternion.identity);
+                        
+                        task.transform.position = task_.position_button_refList[task_.position_current].transform.position;
+                        task_.start_animaiton(settings_controller.current.square_or_natural,settings_controller.current.xfir_yfir,object_holder.current.redirector,blank);
+                    }
+                }
             }
         }
     }

@@ -98,7 +98,8 @@ public class task_creation : MonoBehaviour
             new_task.GetComponent<task_data>().positions_2.Add(p.Substring(1,1));
             new_task.GetComponent<task_data>().positions_3.Add(p.Substring(2,1));
             new_task.GetComponent<task_data>().positions_4.Add(p.Substring(3,1));
-        
+            new_task.GetComponent<task_data>().position_obj_refList.Add(area_tasks_go_in[current_area].transform.parent.transform.parent.gameObject);
+            new_task.GetComponent<task_data>().position_button_refList.Add(area_tasks_go_in[current_area].transform.parent.transform.parent.GetComponent<project_data>().area_selection_button);
             
         }
     }

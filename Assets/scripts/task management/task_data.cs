@@ -102,13 +102,15 @@ public class task_data : MonoBehaviour
     /// for a business, then they might have a few hundred tasks. anything over 1000 is extremely unlikely, if you have over 9999 tasks then i am sorry, but you
     /// probably also are one of those people who buys 50 watermelons and must fit them within the volume of their trunk. in otherwords, you probably do not exist. :p
     /// </summary>
-
+    public List<GameObject> position_obj_refList;
+    public int position_current;
     [Header("animation")]
     //public Rigidbody2D rb;
     public float move_speed;
-    public GameObject targ;
-    public GameObject targ_intermediate;
     public bool intermediate;
+    public Vector2 track_1;
+    public Vector2 track_2;
+    public List<GameObject> position_button_refList;
     
     void Start()
     {
@@ -383,7 +385,7 @@ public class task_data : MonoBehaviour
     #endregion
 
     #region data
-    public void position_data_changer(string obj,int current_list,int new_pos_1,int new_pos_2,int new_pos_3,int new_pos_4)
+    public void position_data_changer(string obj,int current_list,int new_pos_1,int new_pos_2,int new_pos_3,int new_pos_4,GameObject obj_reference)
     {
         string a = new_pos_1.ToString();
         string b = new_pos_2.ToString();
@@ -391,8 +393,12 @@ public class task_data : MonoBehaviour
         string d = new_pos_4.ToString();
         //Debug.Log("c" + c);
         //Debug.Log("d" + d);
-
+        if (position_obj_refList.Contains(obj_reference) == false)
+        {
+            position_obj_refList.Add(obj_reference);
+        }
         int id = positions_obj_name.IndexOf(obj);
+        position_current = id;
         
         if (positions_1[id].Count() >= current_list + 1)
         {
@@ -419,14 +425,14 @@ public class task_data : MonoBehaviour
         if ( positions_1[id].Count() != current_list + 1)
         {
             //position_data_changer(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4); Debug.Log("redoing the data change");
-            repeat_pos_data_change(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4);
+            repeat_pos_data_change(obj,current_list,new_pos_1,new_pos_2,new_pos_3,new_pos_4,obj_reference);
         }
     }
     
-    public void repeat_pos_data_change(string a, int b,int c,int d, int e,int f)
+    public void repeat_pos_data_change(string a, int b,int c,int d, int e,int f,GameObject g)
     {
         //yield return new WaitForSeconds(0.1f);
-        position_data_changer(a,b,c,d,e,f);
+        position_data_changer(a,b,c,d,e,f,g);
         //Debug.Log("redoing the pos data change");
     }
     
@@ -436,10 +442,10 @@ public class task_data : MonoBehaviour
     #region animation
     
 
-    public void start_animaiton()//bool square_or_natural,bool xfir_yfir,GameObject objective_1,GameObject objective_2)
+    public void start_animaiton(bool square_or_natural,bool xfir_yfir,GameObject objective_1,GameObject objective_2)
     {
-        turn_on_for_animating_purposes();
-        StartCoroutine(seek(false,false,targ_intermediate,targ));//square_or_natural, xfir_yfir, objective_1, objective_2));
+        //turn_on_for_animating_purposes();
+        StartCoroutine(seek(square_or_natural, xfir_yfir, objective_1, objective_2));
     }
 
     public void turn_on_for_animating_purposes()
@@ -451,11 +457,14 @@ public class task_data : MonoBehaviour
 
     public IEnumerator seek(bool square_or_natural,bool xfir_yfir,GameObject objective_1,GameObject objective_2)
     {
+        intermediate = settings_controller.current.intermediate;
         GameObject current_objective;
         bool initial = true;
         float initial_dir_x = 420420;
         float initial_dir_y = -6969;
-
+        move_speed = settings_controller.current.move_speed;
+        StartCoroutine(count_time_1());
+        StartCoroutine(count_time_2());
         while (time_controller.current.starter == true)
         {
             if (intermediate == true)
@@ -471,18 +480,40 @@ public class task_data : MonoBehaviour
             if (square_or_natural == true)
             {
                 
-                transform.localPosition = Vector2.MoveTowards(transform.localPosition,current_objective.transform.localPosition,move_speed * Time.deltaTime);
+                if (track_1 == track_2)//detects when movement stops.
+                {
+                    if (current_objective == objective_1)
+                    {
+                        intermediate = false;
+                        StopCoroutine(count_time_1());
+                        StopCoroutine(count_time_2());
+                        track_1.x = 999;
+                        track_2.y = -888888;
+                        StartCoroutine(count_time_1());
+                        StartCoroutine(count_time_2());
+                    }
+                    else
+                    {
+                        Destroy(current_objective);
+                        transform.parent.GetComponent<VerticalLayoutGroup>().enabled = true;
+                    }
+                }
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position,current_objective.transform.position,move_speed * Time.deltaTime);
+                    
+                }
                 
             }
             else
             {
-                float Direction_x = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
-                float Direction_y = Mathf.Sign(current_objective.transform.localPosition.y - transform.localPosition.y);
-                if (Mathf.Abs(current_objective.transform.localPosition.x - transform.localPosition.x) < 1)
+                float Direction_x = Mathf.Sign(current_objective.transform.position.x - transform.position.x);
+                float Direction_y = Mathf.Sign(current_objective.transform.position.y - transform.position.y);
+                if (Mathf.Abs(current_objective.transform.position.x - transform.position.x) < 1)
                 {
                     Direction_x = 0;
                 }
-                if (Mathf.Abs(current_objective.transform.localPosition.y - transform.localPosition.y) < 1)
+                if (Mathf.Abs(current_objective.transform.position.y - transform.position.y) < 1)
                 {
                     Direction_y = 0;
                 }
@@ -511,24 +542,6 @@ public class task_data : MonoBehaviour
                             );
                             transform.position = MovePos;
                         }
-                        if (0 == Direction_y)
-                        {
-                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
-                            Vector3 MovePos = new Vector3(
-                                transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
-                                transform.position.y,
-                                transform.position.z
-                            );
-                            if (0 != Direction_x)
-                            {
-                                transform.position = MovePos;
-                            }
-                            else
-                            {
-                                yield return new WaitForSeconds(1f);
-                                intermediate = false;
-                            }
-                        }
                         
                     }
                     if (initial_dir_y < 0)
@@ -548,7 +561,7 @@ public class task_data : MonoBehaviour
                     
                     if (0 == Direction_y)
                     {
-                        //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                        //float Direction = Mathf.Sign(current_objective.transform.position.x - transform.position.x);
                         Vector3 MovePos = new Vector3(
                             transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
                             transform.position.y,
@@ -560,6 +573,11 @@ public class task_data : MonoBehaviour
                         }
                         else
                         {
+                            if (current_objective != objective_1)
+                            {
+                                Destroy(current_objective);
+                                transform.parent.GetComponent<VerticalLayoutGroup>().enabled = true;
+                            }
                             yield return new WaitForSeconds(1f);
                             intermediate = false;
                         }
@@ -573,7 +591,7 @@ public class task_data : MonoBehaviour
                     {
                         if (0 < Direction_x)
                         {
-                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                            //float Direction = Mathf.Sign(current_objective.transform.position.x - transform.position.x);
                             Vector3 MovePos = new Vector3(
                                 transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
                                 transform.position.y,
@@ -587,7 +605,7 @@ public class task_data : MonoBehaviour
                     {
                         if (0 > Direction_x)
                         {
-                            //float Direction = Mathf.Sign(current_objective.transform.localPosition.x - transform.localPosition.x);
+                            //float Direction = Mathf.Sign(current_objective.transform.position.x - transform.position.x);
                             Vector3 MovePos = new Vector3(
                                 transform.position.x + Direction_x * move_speed * Time.deltaTime, //MoveTowards on 1 axis
                                 transform.position.y,
@@ -599,7 +617,7 @@ public class task_data : MonoBehaviour
                     }
                     if (0 == Direction_x)
                     {
-                        //float Direction = Mathf.Sign(current_objective.transform.localPosition.y - transform.localPosition.y);
+                        //float Direction = Mathf.Sign(current_objective.transform.position.y - transform.position.y);
                         Vector3 MovePos = new Vector3(
                             transform.position.x,
                             transform.position.y + Direction_y * move_speed * Time.deltaTime, //MoveTowards on 1 axis
@@ -611,6 +629,11 @@ public class task_data : MonoBehaviour
                         }
                         else
                         {
+                            if (current_objective != objective_1)
+                            {
+                                Destroy(current_objective);
+                                transform.parent.GetComponent<VerticalLayoutGroup>().enabled = true;
+                            }
                             yield return new WaitForSeconds(1f);
                             intermediate = false;
                         }
@@ -622,7 +645,23 @@ public class task_data : MonoBehaviour
         }
 
     }
-    
+    private IEnumerator count_time_1()
+    {
+        while (time_controller.current.starter == true)
+        {
+            track_1 = transform.position;
+            yield return new WaitForSecondsRealtime(2f);
+        }
+    }
+    private IEnumerator count_time_2()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        while (time_controller.current.starter == true)
+        {
+            track_2 = transform.position;
+            yield return new WaitForSecondsRealtime(3f);
+        }
+    }
 
     #endregion
 }

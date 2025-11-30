@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class day_data : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class day_data : MonoBehaviour
     public List<GameObject> display_list;
     public int current_list;
     public int method_exception_count;
+
+    public GameObject area_selection_button;
     /*public bool trigger_bc_imtoolasyforbutton;
 
     void Update()
@@ -62,6 +66,13 @@ public class day_data : MonoBehaviour
                     task_.positions_2.Add(p.Substring(1,1));
                     task_.positions_3.Add(p.Substring(2,1));
                     task_.positions_4.Add(p.Substring(3,1));
+                    task_.position_obj_refList.Add(this.gameObject);
+                    
+                
+                }
+                if (task_.position_button_refList.Contains(area_selection_button) == false)
+                {
+                    task_.position_button_refList.Add(area_selection_button);
                 }
                 int index_of_this_list_in_task = task_.positions_obj_name.IndexOf(my_date/* + "_" +lists[current_list]*/);//example: october25th smart sort //the list part is already handeled by the other digits in the string i thnk.
                 //this part makes sure it grabs only the correct character. task 1 is stored as the first digit, 2 as the second. for task 1 grab the first digit of each.
@@ -75,7 +86,7 @@ public class day_data : MonoBehaviour
                 {
                     startup_val = 0;
                 }*/
-
+                task_.position_current = task_.positions_obj_name.IndexOf(my_date);
                 if (task_.positions_1[task_.positions_obj_name.IndexOf(my_date)].Count() < current_list+1)
                 {
                     string Mec = method_exception_count.ToString("D4");
@@ -85,7 +96,7 @@ public class day_data : MonoBehaviour
                     int Mec_c = int.Parse(Mec.Substring(2, 1));
                     int Mec_d = int.Parse(Mec.Substring(3, 1));
                     
-                    task_.position_data_changer(my_date,current_list,Mec_a,Mec_b,Mec_c,Mec_d);
+                    task_.position_data_changer(my_date,current_list,Mec_a,Mec_b,Mec_c,Mec_d,this.gameObject);
                     
                     method_exception_count++;
                 }
@@ -128,6 +139,24 @@ public class day_data : MonoBehaviour
             {
                 task.transform.SetParent(day_content.transform);
                 task.transform.localPosition = Vector3.zero;
+                if (settings_controller.current.animate == true)
+                {
+                    if (task.TryGetComponent<task_data>(out task_data task_))
+                    {
+                        day_content.GetComponent<VerticalLayoutGroup>().enabled = false;
+
+                        var blank = Instantiate(object_holder.current.blank_target_object_reference,Vector3.zero,quaternion.identity);
+                        blank.transform.SetParent(day_content.transform);
+                        blank.transform.SetLocalPositionAndRotation(task.transform.localPosition,quaternion.identity);
+                        //blank.transform.SetParent(object_holder.current.mock_for_animation.transform.GetChild(0).transform.GetChild(0).transform);//sets it to the content of the mock for animating.
+                        //this should set the blank to the same position in world space as the task.
+                        //Debug.Log("button position: " + task.GetComponent<task_data>().position_obj_refList[task.GetComponent<task_data>().position_current].GetComponent<project_data>().area_selection_button.transform.position);
+                        //var blank2 = Instantiate(object_holder.current.blank_target_object_reference,task_.position_button_refList[task_.position_current].transform.position,quaternion.identity);
+                        
+                        task.transform.position = task_.position_button_refList[task_.position_current].transform.position;
+                        task_.start_animaiton(settings_controller.current.square_or_natural,settings_controller.current.xfir_yfir,object_holder.current.redirector,blank);
+                    }
+                }
             }
         }
     }
