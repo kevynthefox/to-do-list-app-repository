@@ -740,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b6451b34889a24c8d149752aae25ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  animate: 1
+  animate: 0
   square_or_natural: 1
   xfir_yfir: 0
   intermediate: 0
