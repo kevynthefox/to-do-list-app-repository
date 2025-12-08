@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using TMPro.EditorUtilities;
+
 //using TMPro.EditorUtilities;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -77,6 +79,7 @@ public class task_data : MonoBehaviour
     [Header("date stuff")]
     //public bool wee;
     public string my_date;
+    public TMP_InputField date_input_text;
      
     public List<string> positions_obj_name; //get the index of the object you are trying to retrieve and that index will be the position in the list(vertically not horizontally) that you need to get the thing.
     public List<string> positions_1; 
@@ -663,6 +666,63 @@ public class task_data : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region date stuff
+    public void Set_day_with_text()
+    {
+        my_date = date_input_text.text;
+    }
+
+    public void Set_today()
+    {
+        Set_day(DateTime.Today);        
+    }
+
+    public void Set_tomorrow()
+    {
+        Set_day(DateTime.Today.AddDays(1));
+    }
+
+    public void Set_noDate()
+    {
+        my_date = null;
+    }
+
+    public void Set_later_this_week()
+    {
+        //Set_day(DateTime.)
+    } 
+
+    public void Set_day(DateTime day)
+    {
+        string date_holder_1;
+        if (settings_controller.current.date_type == false)
+        {
+            date_holder_1 = day.ToString("dd/MM/yyyy");
+            my_date = date_holder_1.Substring(0,10);
+        }
+        if (settings_controller.current.date_type == true)
+        {
+            date_holder_1 = day.ToString("MM/dd/yyyy");
+            my_date = date_holder_1.Substring(0,10);
+        }
+    }
+
+    public void Set_dateTime(DateTime dateTime)
+    {
+        //string date_holder_1;
+        if (settings_controller.current.date_type == false)
+        {
+            my_date = dateTime.ToString("dd/MM/yyyy");
+            //my_date = date_holder_1.Substring(0,10);
+        }
+        if (settings_controller.current.date_type == true)
+        {
+            my_date = dateTime.ToString("MM/dd/yyyy");
+            //my_date = date_holder_1.Substring(0,10);
+        }
+    }
     #endregion
 }
 

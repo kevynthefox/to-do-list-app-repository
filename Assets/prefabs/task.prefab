@@ -333,15 +333,19 @@ MonoBehaviour:
   - {fileID: 4180624023203832311}
   - {fileID: 6725421173961206194}
   my_date: oct28th
+  date_input_text: {fileID: 5420578255743897546}
   positions_obj_name: []
   positions_1: []
   positions_2: []
   positions_3: []
   positions_4: []
+  position_obj_refList: []
+  position_current: 0
   move_speed: 1
-  targ: {fileID: 0}
-  targ_intermediate: {fileID: 0}
   intermediate: 0
+  track_1: {x: 0, y: 0}
+  track_2: {x: 0, y: 0}
+  position_button_refList: []
 --- !u!1 &1800376711194406944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,6 +2965,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -276.02002
       objectReference: {fileID: 0}
+    - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198446890285160594}
+    - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_tomorrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: task_data, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4045220354019570567, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -2981,6 +2997,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -686013587845223881, guid: d4b9d39c164d0a2f29e7257261c909f9, type: 3}
+    - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198446890285160594}
+    - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_today
+      objectReference: {fileID: 0}
+    - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: task_data, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4250206141916184148, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3001,6 +3029,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5744904054898057027, guid: db8275cddc600289a88fc1444e643cde, type: 3}
+    - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198446890285160594}
+    - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_noDate
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: task_data, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4744666863998016654, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3069,6 +3109,34 @@ PrefabInstance:
       propertyPath: task_I_am_part_of
       value: 
       objectReference: {fileID: 1681320486603941431}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1198446890285160594}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_day_with_text
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: task_data, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6572432203211601517, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3212,6 +3280,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925f86ea07e6e2c45acbb7df9a6f76be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::task_editing_window_behavior
+--- !u!114 &5420578255743897546 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+  m_PrefabInstance: {fileID: 2026719678809836751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_InputField
 --- !u!1 &6056279895957141037 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5200638000213293794, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
