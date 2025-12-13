@@ -745,6 +745,7 @@ MonoBehaviour:
   xfir_yfir: 0
   intermediate: 0
   move_speed: 10
+  date_type: 0
 --- !u!1 &761899257
 GameObject:
   m_ObjectHideFlags: 0
