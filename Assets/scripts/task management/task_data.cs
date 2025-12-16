@@ -709,6 +709,23 @@ public class task_data : MonoBehaviour
         }
     }
 
+    public void Set_day_direct(int day,int month, int year)
+    {
+        //string date_holder_1;
+        if (settings_controller.current.date_type == false)
+        {
+            //date_holder_1 = day.ToString("dd/MM/yyyy");
+            //my_date = date_holder_1.Substring(0,10);
+            my_date = day.ToString("00") + "/" + month.ToString("00") + "/" + year.ToString();
+        }
+        if (settings_controller.current.date_type == true)
+        {
+            //date_holder_1 = day.ToString("MM/dd/yyyy");
+            //my_date = date_holder_1.Substring(0,10);
+            my_date = month.ToString("00") + "/" + day.ToString("00") + "/" + year.ToString();
+        }
+    }
+
     public void Set_dateTime(DateTime dateTime)
     {
         //string date_holder_1;
