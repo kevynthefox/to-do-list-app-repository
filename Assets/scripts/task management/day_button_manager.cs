@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine;
 public class day_button_manager : MonoBehaviour
 {
     public List<GameObject> day_buttons;
+    public List<GameObject> blanks;
+    public List<int> blank_states;
     public int day_output;
     public GameObject task_;
     public int year_;
@@ -14,29 +17,36 @@ public class day_button_manager : MonoBehaviour
     DateTime day_;
     public TextMeshProUGUI MonthYear_text;
 
+    
+    public List<GameObject> blanks_to_turn_on;
+
     public void OnEnable()
     {
         year_ = DateTime.Now.Year;
         month_ = DateTime.Now.Month;
-        toggle_optional_days(year_,month_);
+        Update_month_and_year();
     }
 
     public void year_up()
     {
         year_+=1;
+        Update_month_and_year();
     }
     public void year_down()
     {
         year_-=1;
+        Update_month_and_year();
     }
 
     public void month_right()
     {
         month_+=1;
+        Update_month_and_year();
     }
     public void month_left()
     {
         month_-=1;
+        Update_month_and_year();
     }
 
     public void update_MonthYear_text()
@@ -92,9 +102,29 @@ public class day_button_manager : MonoBehaviour
         }
         if (month_ <= 0 || month_ >= 13)
         {
-            month_name = "OH GOD WHAT HAVE YOU DONE!?";
+            
+            
+            if (month_ <= 0)
+            {
+                year_ -=1;
+                month_ = 12;
+                month_name = "December";
+            }
+            if (month_ >= 13)
+            {
+                year_ +=1;
+                month_ = 1;
+                month_name = "January";
+            }
+            
         }
-        MonthYear_text.text = year_ + "/n" + month_ + "|" + month_name;
+        MonthYear_text.text = year_ + "<br>" + month_ + "|" + month_name;
+    }
+
+    public void Update_month_and_year()
+    {
+        update_MonthYear_text();
+        toggle_optional_days(year_,month_);
     }
 
     public void toggle_optional_days(int year_, int month_)
@@ -126,6 +156,75 @@ public class day_button_manager : MonoBehaviour
             day_buttons[30].SetActive(false);
             day_buttons[31].SetActive(false);
         }
+
+        
+        DateTime day_1 = new DateTime(year_,month_,1);
+        if (day_1.DayOfWeek == DayOfWeek.Sunday)
+        {}
+        if (day_1.DayOfWeek == DayOfWeek.Monday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+        }
+        if (day_1.DayOfWeek == DayOfWeek.Tuesday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+            blanks_to_turn_on.Add(blanks[2]);
+        }
+        if (day_1.DayOfWeek == DayOfWeek.Wednesday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+            blanks_to_turn_on.Add(blanks[2]);
+            blanks_to_turn_on.Add(blanks[3]);
+        }
+        if (day_1.DayOfWeek == DayOfWeek.Thursday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+            blanks_to_turn_on.Add(blanks[2]);
+            blanks_to_turn_on.Add(blanks[3]);
+            blanks_to_turn_on.Add(blanks[4]);
+        }
+        if (day_1.DayOfWeek == DayOfWeek.Friday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+            blanks_to_turn_on.Add(blanks[2]);
+            blanks_to_turn_on.Add(blanks[3]);
+            blanks_to_turn_on.Add(blanks[4]);
+            blanks_to_turn_on.Add(blanks[5]);
+        }
+        if (day_1.DayOfWeek == DayOfWeek.Saturday)
+        {
+            blanks_to_turn_on.Add(blanks[1]);
+            blanks_to_turn_on.Add(blanks[2]);
+            blanks_to_turn_on.Add(blanks[3]);
+            blanks_to_turn_on.Add(blanks[4]);
+            blanks_to_turn_on.Add(blanks[5]);
+            blanks_to_turn_on.Add(blanks[6]);
+        }
+        foreach (GameObject blank in blanks_to_turn_on)
+        {
+            blank_states[blanks.IndexOf(blank)] = 2;
+        }
+        foreach (GameObject blank in blanks)
+        {
+            if (blank != null)
+            {
+                if (blank_states[blanks.IndexOf(blank)] == 0)
+                {
+                    blank.SetActive(false);
+                }
+                if (blank_states[blanks.IndexOf(blank)] == 1)
+                {
+                    blank.SetActive(false);
+                }
+                if (blank_states[blanks.IndexOf(blank)] == 2)
+                {
+                    blank.SetActive(true);
+                    blank_states[blanks.IndexOf(blank)] = 1;
+                }
+            }
+        }
+
+        blanks_to_turn_on.Clear();
     }
 
     public void button_func(GameObject button)
