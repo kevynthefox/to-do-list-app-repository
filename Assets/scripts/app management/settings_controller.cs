@@ -13,9 +13,9 @@ public class settings_controller : MonoBehaviour
     public float move_speed;
     [Header("date")]
     public bool date_type; //0 is dd,mm,yyyy, 1 is mm,dd,yyyy 
-    public DateTime later_this_week;
-    public DateTime this_weekend;
-    public DateTime next_week;
+    public int later_this_week; //if it would be friday you would add 5 or whatever.
+    public int this_weekend;
+    public int next_week;
 
     void Awake()
     {

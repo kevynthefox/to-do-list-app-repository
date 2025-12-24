@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class day_button_manager : MonoBehaviour
 {
@@ -16,7 +18,6 @@ public class day_button_manager : MonoBehaviour
     public int month_;
     DateTime day_;
     public TextMeshProUGUI MonthYear_text;
-
     
     public List<GameObject> blanks_to_turn_on;
 
@@ -25,6 +26,7 @@ public class day_button_manager : MonoBehaviour
         year_ = DateTime.Now.Year;
         month_ = DateTime.Now.Month;
         Update_month_and_year();
+        //glow_today();
     }
 
     public void year_up()
@@ -227,9 +229,127 @@ public class day_button_manager : MonoBehaviour
         blanks_to_turn_on.Clear();
     }
 
+    /*public void glow_today()
+    {
+        foreach (GameObject day in day_buttons)
+        {
+            if (day != null)
+            {
+                day.GetComponent<Image>().color = Color.white;
+            }
+        }
+
+        string day_format = "0";
+        if (settings_controller.current.date_type == false)
+        {
+            day_format =("dd/MM/yyyy");
+        }
+        if (settings_controller.current.date_type == true)
+        {
+            day_format =("MM/dd/yyyy");
+        }
+        
+        string today = DateTime.Today.ToString(day_format);
+
+        if (int.Parse(today.Substring(6, 4)) == year_)
+        {
+            if (settings_controller.current.date_type == false)
+            {
+                if (int.Parse(today.Substring(4, 2)) == month_)
+                {
+                    Debug.Log(int.Parse(today.Substring(0, 2)));
+                    day_buttons[int.Parse(today.Substring(0, 2))].GetComponent<Image>().color = Color.yellow;
+                }
+            }
+            if (settings_controller.current.date_type == true)
+            {
+                if (int.Parse(today.Substring(2, 2)) == month_)
+                {
+                    Debug.Log(int.Parse(today.Substring(4, 2)));
+                    day_buttons[int.Parse(today.Substring(4, 2))].GetComponent<Image>().color = Color.yellow;
+                }
+            }
+        }
+
+    }*/
+    
+    public void Set_day_with_text()
+    {
+        task_.GetComponent<task_data>().my_date = task_.GetComponent<task_data>().date_input_text.text;
+    }
+    public void Set_today()
+    {
+        task_.GetComponent<task_data>().Set_day(DateTime.Today);        
+    }
+
+    public void Set_tomorrow()
+    {
+        task_.GetComponent<task_data>().Set_day(DateTime.Today.AddDays(1));
+    }
+
+    public void Set_noDate()
+    {
+        task_.GetComponent<task_data>().my_date = null;
+    }
+
+    public void Set_next_week()
+    {
+        if (task_.TryGetComponent<task_data>(out task_data taskData))
+        {
+            taskData.Set_day(DateTime.Today);
+            float day_to_add = day_to_add = settings_controller.current.next_week +7;
+            if (taskData.my_date == null) day_to_add = settings_controller.current.next_week + 7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Sunday) day_to_add = settings_controller.current.next_week -0+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Monday)day_to_add = settings_controller.current.next_week -1+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Tuesday) day_to_add = settings_controller.current.next_week -2+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Wednesday) day_to_add = settings_controller.current.next_week -3+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Thursday) day_to_add = settings_controller.current.next_week -4+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Friday) day_to_add = settings_controller.current.next_week -5+7;
+            if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_to_add = settings_controller.current.next_week -6+7;
+            taskData.Set_day(DateTime.Today.AddDays(day_to_add));
+        }
+    }
+    
+    public void Set_this_weekend()
+    {
+        if (task_.TryGetComponent<task_data>(out task_data taskData))
+        {
+            float day_add_to = settings_controller.current.this_weekend;
+            taskData.Set_day(DateTime.Today);
+            if (taskData.my_day_of_the_week == DayOfWeek.Sunday) day_add_to = settings_controller.current.this_weekend -1;
+            if (taskData.my_day_of_the_week == DayOfWeek.Monday) day_add_to = settings_controller.current.this_weekend -2;
+            if (taskData.my_day_of_the_week == DayOfWeek.Tuesday) day_add_to = settings_controller.current.this_weekend -3;
+            if (taskData.my_day_of_the_week == DayOfWeek.Wednesday) day_add_to = settings_controller.current.this_weekend -4;
+            if (taskData.my_day_of_the_week == DayOfWeek.Thursday) day_add_to = settings_controller.current.this_weekend -5;
+            if (taskData.my_day_of_the_week == DayOfWeek.Friday) day_add_to = settings_controller.current.this_weekend -6;
+            if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_add_to = settings_controller.current.this_weekend -7;
+            taskData.Set_day(DateTime.Today.AddDays(day_add_to));
+        }
+    }
+    
+    public void Set_later_this_week()
+    {
+        if (task_.TryGetComponent<task_data>(out task_data taskData))
+        {
+            float day_add_to = settings_controller.current.this_weekend;
+            taskData.Set_day(DateTime.Today);
+            if (taskData.my_day_of_the_week == DayOfWeek.Sunday) day_add_to = settings_controller.current.later_this_week -1;
+            if (taskData.my_day_of_the_week == DayOfWeek.Monday) day_add_to = settings_controller.current.later_this_week -2;
+            if (taskData.my_day_of_the_week == DayOfWeek.Tuesday) day_add_to = settings_controller.current.later_this_week -3;
+            if (taskData.my_day_of_the_week == DayOfWeek.Wednesday) day_add_to = settings_controller.current.later_this_week -4;
+            if (taskData.my_day_of_the_week == DayOfWeek.Thursday) day_add_to = settings_controller.current.later_this_week -5;
+            if (taskData.my_day_of_the_week == DayOfWeek.Friday) day_add_to = settings_controller.current.later_this_week -6;
+            if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_add_to = settings_controller.current.later_this_week -7;
+            taskData.Set_day(DateTime.Today.AddDays(day_add_to));
+        }
+    }
+    
     public void button_func(GameObject button)
     {
         day_output = day_buttons.IndexOf(button);
-        task_.GetComponent<task_data>().Set_day_direct(day_output,month_,year_);
+        var cultureInfo = new CultureInfo("de-DE");
+        string DateString = (day_output + " " + month_ + " " + year_).ToString();
+        //string DateString = "12 June 2008";
+        task_.GetComponent<task_data>().Set_day(DateTime.Parse(DateString,cultureInfo));
     }
 }
