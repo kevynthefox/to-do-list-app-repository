@@ -333,6 +333,7 @@ MonoBehaviour:
   - {fileID: 4180624023203832311}
   - {fileID: 6725421173961206194}
   my_date: oct28th
+  my_day_of_the_week: 0
   date_input_text: {fileID: 5420578255743897546}
   positions_obj_name: []
   positions_1: []
@@ -341,6 +342,12 @@ MonoBehaviour:
   positions_4: []
   position_obj_refList: []
   position_current: 0
+  day_to_repeat_to: 0
+  day_of_the_week_to_repeat_to: 0
+  day_of_the_month_to_repeat_to: 0
+  day_of_the_year_to_repeat_to: 0
+  day_of_custom_repeat_to: 0
+  repeat_date: 0
   move_speed: 1
   intermediate: 0
   track_1: {x: 0, y: 0}
@@ -2893,7 +2900,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1254046192097687149, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 13.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1254046192097687149, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2965,7 +2972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3160217890731159607, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3160217890731159607, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2978,14 +2985,30 @@ PrefabInstance:
     - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1198446890285160594}
+      objectReference: {fileID: 1723995874857751147}
     - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Set_tomorrow
       objectReference: {fileID: 0}
     - target: {fileID: 3192299808769497988, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: task_data, Assembly-CSharp
+      value: day_button_manager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3499819359099496637, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1723995874857751147}
+    - target: {fileID: 3499819359099496637, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_later_this_week
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721264729028147197, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1723995874857751147}
+    - target: {fileID: 3721264729028147197, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_this_weekend
       objectReference: {fileID: 0}
     - target: {fileID: 4045220354019570567, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3010,14 +3033,14 @@ PrefabInstance:
     - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1198446890285160594}
+      objectReference: {fileID: 1723995874857751147}
     - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Set_today
       objectReference: {fileID: 0}
     - target: {fileID: 4247137557655237576, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: task_data, Assembly-CSharp
+      value: day_button_manager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4250206141916184148, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3042,14 +3065,14 @@ PrefabInstance:
     - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1198446890285160594}
+      objectReference: {fileID: 1723995874857751147}
     - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Set_noDate
       objectReference: {fileID: 0}
     - target: {fileID: 4718384380976821241, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: task_data, Assembly-CSharp
+      value: day_button_manager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4744666863998016654, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3069,11 +3092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5214741557190320424, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5214741557190320424, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5552712432451064954, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3097,15 +3120,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5791388687695837037, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5791388687695837037, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5791388687695837037, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6185545065243259197, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: parent
@@ -3157,7 +3180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6572432203211601517, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 13.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6572432203211601517, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3169,7 +3192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6772019441731594104, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 326.02002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6781391181706326530, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_Sprite
@@ -3211,6 +3234,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 8826338295648647967, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1723995874857751147}
+    - target: {fileID: 8826338295648647967, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Set_next_week
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3232,6 +3263,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 752619070614650624, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
   m_PrefabInstance: {fileID: 2026719678809836751}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1723995874857751147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 850203767321370276, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+  m_PrefabInstance: {fileID: 2026719678809836751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6638957afc8415244954ab541c8478a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1867561997033915928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 417343219974064855, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}

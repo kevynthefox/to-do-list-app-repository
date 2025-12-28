@@ -90,7 +90,7 @@ public class task_creation : MonoBehaviour
                 temp.ToString("D3");
             }*/
 
-            Debug.Log(p);
+            //Debug.Log(p);
             //string a = p.s
 
             new_task.GetComponent<task_data>().positions_obj_name.Add(pdata.project_name);

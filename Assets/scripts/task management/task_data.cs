@@ -110,6 +110,13 @@ public class task_data : MonoBehaviour
     /// </summary>
     public List<GameObject> position_obj_refList;
     public int position_current;
+
+    public int day_to_repeat_to; //ie every 8 days
+    public int day_of_the_week_to_repeat_to; //ie every 6th day of the week
+    public int day_of_the_month_to_repeat_to;//ie every 28th of the month
+    public int day_of_the_year_to_repeat_to; //ie every febuary 8th;
+    public int day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years)
+    public bool repeat_date;
     [Header("animation")]
     //public Rigidbody2D rb;
     public float move_speed;
@@ -227,6 +234,13 @@ public class task_data : MonoBehaviour
         else
         {
             crossouts[state].SetActive(true);
+            if (state != 3)
+            {
+                if (repeat_date == true)
+                {
+                    repeat_task();
+                }
+            }
         }
     }
     #endregion
@@ -724,6 +738,47 @@ public class task_data : MonoBehaviour
             my_date = dateTime.ToString("MM/dd/yyyy");
             //my_date = date_holder_1.Substring(0,10);
         }
+    }
+
+    public void repeat_task()
+    {
+        if (day_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddDays(day_to_repeat_to));
+        }
+        if (day_of_the_week_to_repeat_to != 0)
+        {
+            float day_add_to = settings_controller.current.this_weekend;
+            
+            if (my_day_of_the_week == DayOfWeek.Sunday) day_add_to = day_of_the_week_to_repeat_to -1+7;
+            if (my_day_of_the_week == DayOfWeek.Monday) day_add_to = day_of_the_week_to_repeat_to -2+7;
+            if (my_day_of_the_week == DayOfWeek.Tuesday) day_add_to = day_of_the_week_to_repeat_to -3+7;
+            if (my_day_of_the_week == DayOfWeek.Wednesday) day_add_to = day_of_the_week_to_repeat_to -4+7;
+            if (my_day_of_the_week == DayOfWeek.Thursday) day_add_to = day_of_the_week_to_repeat_to -5+7;
+            if (my_day_of_the_week == DayOfWeek.Friday) day_add_to = day_of_the_week_to_repeat_to -6+7;
+            if (my_day_of_the_week == DayOfWeek.Saturday) day_add_to = day_of_the_week_to_repeat_to -7+7;
+            Set_day(my_date_date_format.AddDays(day_add_to));
+        }
+
+        if (day_of_the_month_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddMonths(1));
+        }
+
+        if (day_of_the_year_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddYears(1));
+        }
+
+        if (state == 1)
+        {
+            toggle_completion();
+        }
+        if (state == 2)
+        {
+            toggle_failure();
+        }
+        
     }
     #endregion
 }

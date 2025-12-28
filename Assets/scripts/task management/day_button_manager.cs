@@ -21,14 +21,27 @@ public class day_button_manager : MonoBehaviour
     
     public List<GameObject> blanks_to_turn_on;
 
+
+    public TextMeshProUGUI menu_text;
+    
+    public TMP_InputField day_repeat_1_inp;
+    public TMP_InputField day_repeat_2_inp;
+    public TMP_InputField day_repeat_3_inp;
+    public TMP_InputField day_repeat_4_inp;
+
     public void OnEnable()
     {
         year_ = DateTime.Now.Year;
         month_ = DateTime.Now.Month;
         Update_month_and_year();
-        //glow_today();
+        glow_today();
     }
 
+    #region month_year_texts
+
+    
+
+    
     public void year_up()
     {
         year_+=1;
@@ -121,6 +134,7 @@ public class day_button_manager : MonoBehaviour
             
         }
         MonthYear_text.text = year_ + "<br>" + month_ + "|" + month_name;
+        glow_today();
     }
 
     public void Update_month_and_year()
@@ -128,6 +142,12 @@ public class day_button_manager : MonoBehaviour
         update_MonthYear_text();
         toggle_optional_days(year_,month_);
     }
+
+    #endregion
+
+    #region calendar_changes
+
+    
 
     public void toggle_optional_days(int year_, int month_)
     {
@@ -229,7 +249,7 @@ public class day_button_manager : MonoBehaviour
         blanks_to_turn_on.Clear();
     }
 
-    /*public void glow_today()
+    public void glow_today()
     {
         foreach (GameObject day in day_buttons)
         {
@@ -239,39 +259,30 @@ public class day_button_manager : MonoBehaviour
             }
         }
 
-        string day_format = "0";
-        if (settings_controller.current.date_type == false)
-        {
-            day_format =("dd/MM/yyyy");
-        }
-        if (settings_controller.current.date_type == true)
-        {
-            day_format =("MM/dd/yyyy");
-        }
         
-        string today = DateTime.Today.ToString(day_format);
-
+        
+        string today = DateTime.Today.ToString();
+        Debug.Log("today" + today);
+        Debug.Log("year " + int.Parse(today.Substring(6, 4)) + "year_ " + year_);
         if (int.Parse(today.Substring(6, 4)) == year_)
         {
-            if (settings_controller.current.date_type == false)
+            //Debug.Log("year == year");
+            Debug.Log("month " + int.Parse(today.Substring(0,2)) + "month_ " + month_);
+            if (int.Parse(today.Substring(0, 2)) == month_)
             {
-                if (int.Parse(today.Substring(4, 2)) == month_)
-                {
-                    Debug.Log(int.Parse(today.Substring(0, 2)));
-                    day_buttons[int.Parse(today.Substring(0, 2))].GetComponent<Image>().color = Color.yellow;
-                }
-            }
-            if (settings_controller.current.date_type == true)
-            {
-                if (int.Parse(today.Substring(2, 2)) == month_)
-                {
-                    Debug.Log(int.Parse(today.Substring(4, 2)));
-                    day_buttons[int.Parse(today.Substring(4, 2))].GetComponent<Image>().color = Color.yellow;
-                }
+                Debug.Log("day " + int.Parse(today.Substring(3,2)) + "day_ " + day_);
+                day_buttons[int.Parse(today.Substring(3, 2))].GetComponent<Image>().color = Color.red;
             }
         }
 
-    }*/
+    }
+    
+    #endregion
+
+    #region day_setting
+
+    
+
     
     public void Set_day_with_text()
     {
@@ -352,4 +363,54 @@ public class day_button_manager : MonoBehaviour
         //string DateString = "12 June 2008";
         task_.GetComponent<task_data>().Set_day(DateTime.Parse(DateString,cultureInfo));
     }
+
+    public void Set_day_menu_date()
+    {
+        menu_text.text = task_.GetComponent<task_data>().my_date_date_format.ToString();
+    }
+    #endregion
+    #region repetition
+
+    
+
+    
+    public void repeat_x_days()
+    {
+        task_.GetComponent<task_data>().day_to_repeat_to = int.Parse(day_repeat_1_inp.text);
+        task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0; 
+        task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
+        task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0;day_repeat_3_inp.text = null;
+    }
+    public void repeat_week_days(int num)
+    {
+        task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = num;
+        task_.GetComponent<task_data>().day_to_repeat_to = 0;
+        task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
+        task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0;day_repeat_3_inp.text = null;
+    }
+    public void repeat_month_days()
+    {
+        task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = int.Parse(day_repeat_2_inp.text);
+        task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
+        task_.GetComponent<task_data>().day_to_repeat_to = 0;day_repeat_1_inp.text = null;
+        task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0;day_repeat_3_inp.text = null;
+    }
+    public void repeat_year_days()
+    {
+        task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = int.Parse(day_repeat_3_inp.text);
+        task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
+        task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
+        task_.GetComponent<task_data>().day_to_repeat_to= 0;day_repeat_1_inp.text = null;
+    }
+    public void repeat_custom_days()
+    {
+        task_.GetComponent<task_data>().day_of_custom_repeat_to = int.Parse(day_repeat_4_inp.text);
+    }
+
+    public void toggle_repeat()
+    {
+        task_.GetComponent<task_data>().repeat_date = !task_.GetComponent<task_data>().repeat_date;
+    }
+    
+    #endregion
 }

@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "to do list app.slnx"
+    "dotnet.defaultSolution": "to-do-list-app-repository.slnx"
 }
