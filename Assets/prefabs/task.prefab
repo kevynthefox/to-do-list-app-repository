@@ -3144,7 +3144,7 @@ PrefabInstance:
       objectReference: {fileID: 1681320486603941431}
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -3153,7 +3153,7 @@ PrefabInstance:
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1198446890285160594}
+      objectReference: {fileID: 1723995874857751147}
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3164,7 +3164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: task_data, Assembly-CSharp
+      value: day_button_manager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6276216859303035653, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

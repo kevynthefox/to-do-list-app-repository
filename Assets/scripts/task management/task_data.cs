@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using TMPro;
 using TMPro.EditorUtilities;
@@ -114,8 +115,8 @@ public class task_data : MonoBehaviour
     public int day_to_repeat_to; //ie every 8 days
     public int day_of_the_week_to_repeat_to; //ie every 6th day of the week
     public int day_of_the_month_to_repeat_to;//ie every 28th of the month
-    public int day_of_the_year_to_repeat_to; //ie every febuary 8th;
-    public int day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years)
+    public string day_of_the_year_to_repeat_to; //ie every febuary 8th;
+    public int day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years) (maybe stick to 14 days for repeat every 2 weeks)
     public bool repeat_date;
     [Header("animation")]
     //public Rigidbody2D rb;
@@ -249,7 +250,7 @@ public class task_data : MonoBehaviour
     {
         /*if (editor_window != parent_task.GetComponent<task_data>().editor_window)
         {*/
-        Debug.Log("force open worked");
+        //Debug.Log("force open worked");
         editor_window.GetComponent<task_editing_window_behavior>().toggle_open();
         /*}
         else
@@ -762,12 +763,86 @@ public class task_data : MonoBehaviour
 
         if (day_of_the_month_to_repeat_to != 0)
         {
-            Set_day(my_date_date_format.AddMonths(1));
+            //Debug.Log(my_date_date_format.ToString("MM/dd/yyyy").Substring(3,2));
+            int day_ = int.Parse( my_date_date_format.ToString("MM/dd/yyyy").Substring(3,2));
+            int day__ = day_of_the_month_to_repeat_to - day_;
+            int days_in_month = DateTime.DaysInMonth(my_date_date_format.AddMonths(1).Year, my_date_date_format.AddMonths(1).Month);
+            //if the day it is trying to set to is greater than the days in the month, set it to the last day of the month instead
+            if (day_ + day__ > days_in_month)
+            {
+                Debug.Log("it was too big");
+                day__ = days_in_month - day_;
+            }
+            //Debug.Log(day__);
+            //Debug.Log(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month));  
+            Set_day(my_date_date_format.AddDays(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month)));
         }
 
-        if (day_of_the_year_to_repeat_to != 0)
+        if (day_of_the_year_to_repeat_to != "0")
         {
-            Set_day(my_date_date_format.AddYears(1));
+            string temp_3;
+            if (settings_controller.current.date_type == false)//for some reason these are backwards?
+            {
+                string temp_1 = day_of_the_year_to_repeat_to.Substring(0, 2);
+                string temp_2 = day_of_the_year_to_repeat_to.Substring(3, 2);
+                temp_3 = (temp_1 +"/"+ temp_2);
+                Debug.Log(temp_3+" 1");
+                if (temp_3 == "02/29" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1).Year) == false))
+                {
+                    temp_3 = "02/28";
+                }
+                Debug.Log(temp_3+" 1.1");
+            }
+            else
+            {
+                string temp_1 = day_of_the_year_to_repeat_to.Substring(0, 2);
+                string temp_2 = day_of_the_year_to_repeat_to.Substring(3, 2);
+                temp_3 = (temp_2 +"/"+ temp_1);
+                Debug.Log(temp_3+" 2");
+                if (temp_3 == "29/02" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1).Year) == false))
+                {
+                    temp_3 = "28/02";
+                }
+                Debug.Log(temp_3+" 2.2");
+            }
+
+            
+
+            DateTime day_to_repeat_to_year;
+
+
+
+            day_to_repeat_to_year = DateTime.Parse(temp_3+"/"+my_date_date_format.AddYears(1).Year.ToString());
+            Debug.Log(day_to_repeat_to_year.ToString("d"));
+            
+            
+            /*int subtract_ = 0;
+            
+            
+            subtract_ = (day_to_repeat_to_year.AddYears(-1) - my_date_date_format).Days;
+
+            
+            if (subtract_ <= -365 ) subtract_ = 0;
+            Debug.Log(day_to_repeat_to_year.ToString("d").Substring(0, 4)); 
+            if (day_to_repeat_to_year.ToString("d").Substring(0,4) == "2/29")
+            {
+                Debug.Log("leap day");
+                subtract_ += 1;
+            }
+            if (day_to_repeat_to_year.AddYears(-2).ToString("d").Substring(0,4) == "2/29")
+            {
+                Debug.Log("leap day");
+                subtract_ += 1;
+            }
+            
+            Debug.Log(subtract_);
+            
+            
+            Set_day(my_date_date_format.AddYears(1).AddDays(subtract_));
+            //Set_day(my_date_date_format.AddYears(1).AddMonths(month__).AddDays(day__));
+            
+            */
+            Set_day(day_to_repeat_to_year);
         }
 
         if (state == 1)
