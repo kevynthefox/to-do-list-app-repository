@@ -1560,7 +1560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3042715932332219398, guid: 9c51a7bb31cca3deba8d7df4b233094b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1710,6 +1710,7 @@ MonoBehaviour:
   current_list: 0
   method_exception_count: 0
   area_selection_button: {fileID: 2169112984493797373}
+  tasks_that_shouldnt_be_here: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

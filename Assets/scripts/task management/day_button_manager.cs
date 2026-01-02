@@ -28,6 +28,7 @@ public class day_button_manager : MonoBehaviour
     public TMP_InputField day_repeat_2_inp;
     public TMP_InputField day_repeat_3_inp;
     public TMP_InputField day_repeat_4_inp;
+    public TMP_InputField day_repeat_5_inp;
 
     public void OnEnable()
     {
@@ -286,21 +287,66 @@ public class day_button_manager : MonoBehaviour
     
     public void Set_day_with_text()
     {
-        task_.GetComponent<task_data>().my_date = task_.GetComponent<task_data>().date_input_text.text;
+        if (task_.TryGetComponent<task_data>(out task_data task))
+        {
+            string my_date = task.date_input_text.text;
+
+        
+            string temp_d = my_date.Substring(0,2);
+            string temp_m = my_date.Substring(3,2);
+            string temp_y = my_date.Substring(6,4);
+            string temp_h = "01";
+            string temp_mm = "23";
+            string temp_s = "45";
+            //01/34/6789:12:45:78 
+            
+
+            string temp_full;
+
+            if (settings_controller.current.date_type == false)
+            {//m d y => d m y
+                temp_full = temp_m +"/"+ temp_d +"/"+ temp_y;
+            }
+            else
+            {
+                temp_full = temp_d +"/"+ temp_m +"/"+ temp_y;
+            }
+            
+            if (my_date.Length >= 11)
+            {
+                temp_h = my_date.Substring(11,2);
+                temp_mm = my_date.Substring(14,2);
+                temp_s = my_date.Substring(17,2);
+
+                task.my_time = (temp_h + ":" + temp_mm + ":" + temp_s);
+                temp_full += (" "+ temp_h + ":" + temp_mm + ":" + temp_s);
+            }
+            Debug.Log(temp_full);
+            task.Set_day(DateTime.Parse(temp_full));
+            
+            
+        
+        }
+        
+        Set_day_menu_date();
     }
     public void Set_today()
     {
-        task_.GetComponent<task_data>().Set_day(DateTime.Today);        
+        task_.GetComponent<task_data>().Set_day(DateTime.Today);
+        Set_day_menu_date();
     }
 
     public void Set_tomorrow()
     {
         task_.GetComponent<task_data>().Set_day(DateTime.Today.AddDays(1));
+        Set_day_menu_date();
     }
 
     public void Set_noDate()
     {
         task_.GetComponent<task_data>().my_date = null;
+        menu_text.text = "[no date]";
+        project_manager.current.update_current_area();
     }
 
     public void Set_next_week()
@@ -319,6 +365,7 @@ public class day_button_manager : MonoBehaviour
             if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_to_add = settings_controller.current.next_week -6+7;
             taskData.Set_day(DateTime.Today.AddDays(day_to_add));
         }
+        Set_day_menu_date();
     }
     
     public void Set_this_weekend()
@@ -336,6 +383,7 @@ public class day_button_manager : MonoBehaviour
             if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_add_to = settings_controller.current.this_weekend -7;
             taskData.Set_day(DateTime.Today.AddDays(day_add_to));
         }
+        Set_day_menu_date();
     }
     
     public void Set_later_this_week()
@@ -353,6 +401,7 @@ public class day_button_manager : MonoBehaviour
             if (taskData.my_day_of_the_week == DayOfWeek.Saturday) day_add_to = settings_controller.current.later_this_week -7;
             taskData.Set_day(DateTime.Today.AddDays(day_add_to));
         }
+        Set_day_menu_date();
     }
     
     public void button_func(GameObject button)
@@ -362,11 +411,13 @@ public class day_button_manager : MonoBehaviour
         string DateString = (day_output + " " + month_ + " " + year_).ToString();
         //string DateString = "12 June 2008";
         task_.GetComponent<task_data>().Set_day(DateTime.Parse(DateString,cultureInfo));
+        Set_day_menu_date();
     }
 
     public void Set_day_menu_date()
     {
-        menu_text.text = task_.GetComponent<task_data>().my_date_date_format.ToString();
+        menu_text.text = task_.GetComponent<task_data>().my_date_date_format.ToString("u");
+        project_manager.current.update_current_area();
     }
     #endregion
     #region repetition
@@ -380,6 +431,12 @@ public class day_button_manager : MonoBehaviour
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0; 
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
+        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+        }
     }
     public void repeat_week_days(int num)
     {
@@ -387,6 +444,12 @@ public class day_button_manager : MonoBehaviour
         task_.GetComponent<task_data>().day_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
+        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+        }
     }
     public void repeat_month_days()
     {
@@ -394,6 +457,12 @@ public class day_button_manager : MonoBehaviour
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_to_repeat_to = 0;day_repeat_1_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
+        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+        }
     }
     public void repeat_year_days()
     {
@@ -401,10 +470,88 @@ public class day_button_manager : MonoBehaviour
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_to_repeat_to= 0;day_repeat_1_inp.text = null;
+        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+        }
     }
+
+    public void repeat_time()
+    {
+        if (task_.TryGetComponent<task_data>(out task_data taskData))
+        {
+            if (day_repeat_5_inp.text.Substring(0, 1) == "h" || 
+                day_repeat_5_inp.text.Substring(0, 1) == "H")
+            {
+                taskData.hours_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                taskData.minutes_to_repeat_to = 0;
+                taskData.seconds_to_repeat_to = 0;
+                taskData.time_to_repeat_to_h = 0;
+                taskData.time_to_repeat_to_m = 0;
+            }
+            if (day_repeat_5_inp.text.Substring(0, 1) == "m" || 
+                day_repeat_5_inp.text.Substring(0, 1) == "M")
+            {
+                taskData.minutes_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                taskData.hours_to_repeat_to = 0;
+                taskData.seconds_to_repeat_to = 0;
+                taskData.time_to_repeat_to_h = 0;
+                taskData.time_to_repeat_to_m = 0;
+            }
+            if (day_repeat_5_inp.text.Substring(0, 1) == "s" || 
+                day_repeat_5_inp.text.Substring(0, 1) == "S")
+            {
+                taskData.seconds_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                taskData.minutes_to_repeat_to = 0;
+                taskData.hours_to_repeat_to = 0;
+                taskData.time_to_repeat_to_h = 0;
+                taskData.time_to_repeat_to_m = 0;
+            }
+            if (day_repeat_5_inp.text.Substring(0, 1) == "@")
+            {
+                taskData.hours_to_repeat_to = 0;
+                taskData.minutes_to_repeat_to = 0;
+                taskData.seconds_to_repeat_to = 0;
+                
+                taskData.time_to_repeat_to_h = int.Parse(day_repeat_5_inp.text.Substring(1, 2));
+                taskData.time_to_repeat_to_m = int.Parse(day_repeat_5_inp.text.Substring(4, 2));
+                if (settings_controller.current.time_type == false)
+                {
+
+                    if (day_repeat_5_inp.text.Substring(6, 2) == "am" ||
+                        day_repeat_5_inp.text.Substring(6, 2) == "Am" ||
+                        day_repeat_5_inp.text.Substring(6, 2) == "AM")
+                    {
+                        taskData.time_to_repeat_to_am_pm = false;
+                    }
+
+                    if (day_repeat_5_inp.text.Substring(6, 2) == "pm" ||
+                        day_repeat_5_inp.text.Substring(6, 2) == "Pm" ||
+                        day_repeat_5_inp.text.Substring(6, 2) == "PM")
+                    {
+                        taskData.time_to_repeat_to_am_pm = true;
+                    }
+
+                }
+            }
+            else
+            {
+                task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = "0";
+                task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
+                task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
+                task_.GetComponent<task_data>().day_to_repeat_to= 0;day_repeat_1_inp.text = null;
+            }
+            
+        }
+        
+        
+    }
+    
     public void repeat_custom_days()
     {
-        task_.GetComponent<task_data>().day_of_custom_repeat_to = int.Parse(day_repeat_4_inp.text);
+        task_.GetComponent<task_data>().day_of_custom_repeat_to = day_repeat_4_inp.text;
     }
 
     public void toggle_repeat()

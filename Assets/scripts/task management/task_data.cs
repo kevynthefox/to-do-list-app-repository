@@ -80,11 +80,22 @@ public class task_data : MonoBehaviour
     [Header("date stuff")]
     //public bool wee;
     public string my_date;
+    public string my_time;
 
     public DateTime my_date_date_format;
     public DayOfWeek my_day_of_the_week;
     public TMP_InputField date_input_text;
-     
+    
+    public int day_to_repeat_to; //ie every 8 days
+    public int day_of_the_week_to_repeat_to; //ie every 6th day of the week
+    public int day_of_the_month_to_repeat_to;//ie every 28th of the month
+    public string day_of_the_year_to_repeat_to; //ie every febuary 8th;
+    public int hours_to_repeat_to, minutes_to_repeat_to, seconds_to_repeat_to, time_to_repeat_to_h,time_to_repeat_to_m;
+    public bool time_to_repeat_to_am_pm;
+    public string day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years) (maybe stick to 14 days for repeat every 2 weeks)
+    public bool repeat_date;
+    
+    [Header("sorting")]
     public List<string> positions_obj_name; //get the index of the object you are trying to retrieve and that index will be the position in the list(vertically not horizontally) that you need to get the thing.
     public List<string> positions_1; 
     public List<string> positions_2; 
@@ -111,13 +122,12 @@ public class task_data : MonoBehaviour
     /// </summary>
     public List<GameObject> position_obj_refList;
     public int position_current;
+    public int previous_position;
+    
+    
 
-    public int day_to_repeat_to; //ie every 8 days
-    public int day_of_the_week_to_repeat_to; //ie every 6th day of the week
-    public int day_of_the_month_to_repeat_to;//ie every 28th of the month
-    public string day_of_the_year_to_repeat_to; //ie every febuary 8th;
-    public int day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years) (maybe stick to 14 days for repeat every 2 weeks)
-    public bool repeat_date;
+    public TextMeshProUGUI date_menu_header;
+    
     [Header("animation")]
     //public Rigidbody2D rb;
     public float move_speed;
@@ -692,21 +702,19 @@ public class task_data : MonoBehaviour
 
     public void Set_day(DateTime day)
     {
-        string date_holder_1;
+        string date_holder_1 = "0";
         if (settings_controller.current.date_type == false)
         {
             date_holder_1 = day.ToString("dd/MM/yyyy");
-            my_date = date_holder_1.Substring(0,10);
-            my_day_of_the_week = day.DayOfWeek;
-            my_date_date_format = day;
         }
         if (settings_controller.current.date_type == true)
         {
             date_holder_1 = day.ToString("MM/dd/yyyy");
-            my_date = date_holder_1.Substring(0,10);
-            my_day_of_the_week = day.DayOfWeek;
-            my_date_date_format = day;
         }
+        my_date = date_holder_1.Substring(0,10);
+        my_day_of_the_week = day.DayOfWeek;
+        my_date_date_format = day;
+        my_time = my_date_date_format.TimeOfDay.ToString("g");
     }
 
     public void Set_day_direct(int day,int month, int year)
@@ -778,7 +786,7 @@ public class task_data : MonoBehaviour
             Set_day(my_date_date_format.AddDays(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month)));
         }
 
-        if (day_of_the_year_to_repeat_to != "0")
+        if (day_of_the_year_to_repeat_to != "0")    
         {
             string temp_3;
             if (settings_controller.current.date_type == false)//for some reason these are backwards?
@@ -845,6 +853,31 @@ public class task_data : MonoBehaviour
             Set_day(day_to_repeat_to_year);
         }
 
+        if (hours_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddHours(hours_to_repeat_to));
+        }
+        if (minutes_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddMinutes(minutes_to_repeat_to));
+        }
+        if (seconds_to_repeat_to != 0)
+        {
+            Set_day(my_date_date_format.AddSeconds(seconds_to_repeat_to));
+        }
+
+        if (time_to_repeat_to_h != 0)
+        {
+            Set_day(my_date_date_format.AddHours(time_to_repeat_to_h - my_date_date_format.Hour)
+                .AddMinutes(time_to_repeat_to_m - my_date_date_format.Minute));
+        }
+
+        if (day_of_custom_repeat_to != null)
+        {
+            //if (day_of_custom_repeat_to.Substring())
+        }
+        
+
         if (state == 1)
         {
             toggle_completion();
@@ -853,7 +886,10 @@ public class task_data : MonoBehaviour
         {
             toggle_failure();
         }
+
+        date_menu_header.text = my_date_date_format.ToString("u");
         
+        project_manager.current.update_current_area();
     }
     #endregion
 }

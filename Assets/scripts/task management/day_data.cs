@@ -20,6 +20,8 @@ public class day_data : MonoBehaviour
     public int method_exception_count;
 
     public GameObject area_selection_button;
+
+    public List<GameObject> tasks_that_shouldnt_be_here;
     /*public bool trigger_bc_imtoolasyforbutton;
 
     void Update()
@@ -42,6 +44,14 @@ public class day_data : MonoBehaviour
                 {
                     tasks_for_today.Add(task);
                 }
+            }
+        }
+
+        for (int i = 0; i < day_content.transform.childCount; i++)
+        {
+            if (day_content.transform.GetChild(i).GetComponent<task_data>().my_date != my_date)
+            {
+                tasks_that_shouldnt_be_here.Add(day_content.transform.GetChild(i).gameObject);
             }
         }
     }
@@ -67,8 +77,8 @@ public class day_data : MonoBehaviour
                     task_.positions_3.Add(p.Substring(2,1));
                     task_.positions_4.Add(p.Substring(3,1));
                     task_.position_obj_refList.Add(this.gameObject);
-                    
-                
+
+                    task_.previous_position = task_.position_current;
                 }
                 if (task_.position_button_refList.Contains(area_selection_button) == false)
                 {
@@ -159,6 +169,15 @@ public class day_data : MonoBehaviour
                 }
             }
         }
+
+        foreach (GameObject task in tasks_that_shouldnt_be_here)
+        {
+            if (task.TryGetComponent<task_data>(out task_data task_))
+            {
+                task.transform.SetParent(task_.position_obj_refList[task_.previous_position].transform);
+                task_.previous_position = task_.position_current;
+            }
+        }
     }
     
 
@@ -167,5 +186,6 @@ public class day_data : MonoBehaviour
         tasks_for_today.Clear();
         collect_tasks_for_today();
         arrange_tasks();
+        tasks_that_shouldnt_be_here.Clear();
     }
 }

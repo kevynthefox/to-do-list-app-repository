@@ -42,6 +42,10 @@ public class project_manager : MonoBehaviour
                 //I am setting things active or inactive because the projects are likely to have tons of children and it would lag the app a lot
                 //if all of the children were always active.
                 project.SetActive(true);
+                if (project.TryGetComponent<day_data>(out day_data day_data))
+                {
+                    day_data.activate_day();
+                }
                 project_buttons[projects.IndexOf(project)].transform.GetChild(1).gameObject.SetActive(true);
             }
             else
@@ -52,7 +56,10 @@ public class project_manager : MonoBehaviour
         }
     }
 
-    
+    public void update_current_area()
+    {
+        switch_active_project(projects[current_area]);
+    }
 
     
 }

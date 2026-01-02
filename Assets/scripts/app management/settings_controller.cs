@@ -13,6 +13,7 @@ public class settings_controller : MonoBehaviour
     public float move_speed;
     [Header("date")]
     public bool date_type; //0 is dd,mm,yyyy, 1 is mm,dd,yyyy 
+    public bool time_type; //0 is 12hr am/pm. 1 is 24 hour time.
     public int later_this_week; //if it would be friday you would add 5 or whatever.
     public int this_weekend;
     public int next_week;

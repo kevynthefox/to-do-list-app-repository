@@ -348,6 +348,7 @@ MonoBehaviour:
   day_of_the_year_to_repeat_to: 0
   day_of_custom_repeat_to: 0
   repeat_date: 0
+  date_menu_header: {fileID: 282718092836404017}
   move_speed: 1
   intermediate: 0
   track_1: {x: 0, y: 0}
@@ -3247,6 +3248,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+--- !u!114 &282718092836404017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2291259451347826686, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
+  m_PrefabInstance: {fileID: 2026719678809836751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!114 &1547839963503646172 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 674223767132100883, guid: b7e9242c98b2fe71dbfd498d9d6e388a, type: 3}
