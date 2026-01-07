@@ -427,15 +427,38 @@ public class day_button_manager : MonoBehaviour
     
     public void repeat_x_days()
     {
-        task_.GetComponent<task_data>().day_to_repeat_to = int.Parse(day_repeat_1_inp.text);
+        Debug.Log(day_repeat_1_inp.text.Length);
+        if (day_repeat_1_inp.text.Length != 0)
+        {
+            task_.GetComponent<task_data>().day_to_repeat_to = int.Parse(day_repeat_1_inp.text);
+        }
+        else
+        {
+            task_.GetComponent<task_data>().day_to_repeat_to = 0;
+        }
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0; 
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
-        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        if (day_repeat_5_inp.text.Length != 0)
         {
-            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+            {
+                task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+            }
+        }
+        else
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
         }
     }
     public void repeat_week_days(int num)
@@ -444,37 +467,97 @@ public class day_button_manager : MonoBehaviour
         task_.GetComponent<task_data>().day_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
-        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        if (day_repeat_5_inp.text.Length != 0)
         {
-            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+            {
+                task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+            }
+        }
+        else
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
         }
     }
     public void repeat_month_days()
     {
-        task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = int.Parse(day_repeat_2_inp.text);
+        if (day_repeat_2_inp.text.Length != 0)
+        {
+            task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = int.Parse(day_repeat_2_inp.text);
+        }
+        else
+        {
+            task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;
+        }
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_to_repeat_to = 0;day_repeat_1_inp.text = null;
         task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = 0.ToString();day_repeat_3_inp.text = null;
-        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        if (day_repeat_5_inp.text.Length != 0)
         {
-            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+            {
+                task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+            }
+        }
+        else
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
         }
     }
     public void repeat_year_days()
     {
-        task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = day_repeat_3_inp.text;
+        if (day_repeat_3_inp.text.Length != 0)
+        {
+            task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = day_repeat_3_inp.text;
+        }
+        else
+        {
+            task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = "0";
+        }
+
         task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
         task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
         task_.GetComponent<task_data>().day_to_repeat_to= 0;day_repeat_1_inp.text = null;
-        if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+        if (day_repeat_5_inp.text.Length != 0)
         {
-            task_.GetComponent<task_data>().hours_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().minutes_to_repeat_to= 0;day_repeat_5_inp.text = null;
-            task_.GetComponent<task_data>().seconds_to_repeat_to= 0;day_repeat_5_inp.text = null;
+            if (day_repeat_5_inp.text.Substring(0, 1) != "@")
+            {
+                task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+                task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+                day_repeat_5_inp.text = null;
+            }
+        }
+        else
+        {
+            task_.GetComponent<task_data>().hours_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().minutes_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
+            task_.GetComponent<task_data>().seconds_to_repeat_to = 0;
+            day_repeat_5_inp.text = null;
         }
     }
 
@@ -482,68 +565,92 @@ public class day_button_manager : MonoBehaviour
     {
         if (task_.TryGetComponent<task_data>(out task_data taskData))
         {
-            if (day_repeat_5_inp.text.Substring(0, 1) == "h" || 
-                day_repeat_5_inp.text.Substring(0, 1) == "H")
+            if (day_repeat_5_inp.text.Length != 0)
             {
-                taskData.hours_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
-                taskData.minutes_to_repeat_to = 0;
-                taskData.seconds_to_repeat_to = 0;
-                taskData.time_to_repeat_to_h = 0;
-                taskData.time_to_repeat_to_m = 0;
-            }
-            if (day_repeat_5_inp.text.Substring(0, 1) == "m" || 
-                day_repeat_5_inp.text.Substring(0, 1) == "M")
-            {
-                taskData.minutes_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
-                taskData.hours_to_repeat_to = 0;
-                taskData.seconds_to_repeat_to = 0;
-                taskData.time_to_repeat_to_h = 0;
-                taskData.time_to_repeat_to_m = 0;
-            }
-            if (day_repeat_5_inp.text.Substring(0, 1) == "s" || 
-                day_repeat_5_inp.text.Substring(0, 1) == "S")
-            {
-                taskData.seconds_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
-                taskData.minutes_to_repeat_to = 0;
-                taskData.hours_to_repeat_to = 0;
-                taskData.time_to_repeat_to_h = 0;
-                taskData.time_to_repeat_to_m = 0;
-            }
-            if (day_repeat_5_inp.text.Substring(0, 1) == "@")
-            {
-                taskData.hours_to_repeat_to = 0;
-                taskData.minutes_to_repeat_to = 0;
-                taskData.seconds_to_repeat_to = 0;
-                
-                taskData.time_to_repeat_to_h = int.Parse(day_repeat_5_inp.text.Substring(1, 2));
-                taskData.time_to_repeat_to_m = int.Parse(day_repeat_5_inp.text.Substring(4, 2));
-                if (settings_controller.current.time_type == false)
+                if (day_repeat_5_inp.text.Substring(0, 1) == "h" ||
+                    day_repeat_5_inp.text.Substring(0, 1) == "H")
                 {
-
-                    if (day_repeat_5_inp.text.Substring(6, 2) == "am" ||
-                        day_repeat_5_inp.text.Substring(6, 2) == "Am" ||
-                        day_repeat_5_inp.text.Substring(6, 2) == "AM")
-                    {
-                        taskData.time_to_repeat_to_am_pm = false;
-                    }
-
-                    if (day_repeat_5_inp.text.Substring(6, 2) == "pm" ||
-                        day_repeat_5_inp.text.Substring(6, 2) == "Pm" ||
-                        day_repeat_5_inp.text.Substring(6, 2) == "PM")
-                    {
-                        taskData.time_to_repeat_to_am_pm = true;
-                    }
-
+                    if (day_repeat_5_inp.text.Length != 0)
+                        taskData.hours_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                    taskData.minutes_to_repeat_to = 0;
+                    taskData.seconds_to_repeat_to = 0;
+                    taskData.time_to_repeat_to_h = 0;
+                    taskData.time_to_repeat_to_m = 0;
                 }
+
+                if (day_repeat_5_inp.text.Substring(0, 1) == "m" ||
+                    day_repeat_5_inp.text.Substring(0, 1) == "M")
+                {
+                    if (day_repeat_5_inp.text.Length != 0)
+                        taskData.minutes_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                    taskData.hours_to_repeat_to = 0;
+                    taskData.seconds_to_repeat_to = 0;
+                    taskData.time_to_repeat_to_h = 0;
+                    taskData.time_to_repeat_to_m = 0;
+                }
+
+                if (day_repeat_5_inp.text.Substring(0, 1) == "s" ||
+                    day_repeat_5_inp.text.Substring(0, 1) == "S")
+                {
+                    if (day_repeat_5_inp.text.Length != 0)
+                        taskData.seconds_to_repeat_to = int.Parse(day_repeat_5_inp.text.Substring(1));
+                    taskData.minutes_to_repeat_to = 0;
+                    taskData.hours_to_repeat_to = 0;
+                    taskData.time_to_repeat_to_h = 0;
+                    taskData.time_to_repeat_to_m = 0;
+                }
+
+                if (day_repeat_5_inp.text.Substring(0, 1) == "@")
+                {
+                    taskData.hours_to_repeat_to = 0;
+                    taskData.minutes_to_repeat_to = 0;
+                    taskData.seconds_to_repeat_to = 0;
+
+                    if (day_repeat_5_inp.text.Length != 0)
+                        taskData.time_to_repeat_to_h = int.Parse(day_repeat_5_inp.text.Substring(1, 2));
+                    if (day_repeat_5_inp.text.Length != 0)
+                        taskData.time_to_repeat_to_m = int.Parse(day_repeat_5_inp.text.Substring(4, 2));
+                    if (day_repeat_5_inp.text.Length != 0)
+                    {
+                        if (settings_controller.current.time_type == false)
+                        {
+
+                            if (day_repeat_5_inp.text.Substring(6, 2) == "am" ||
+                                day_repeat_5_inp.text.Substring(6, 2) == "Am" ||
+                                day_repeat_5_inp.text.Substring(6, 2) == "AM")
+                            {
+                                taskData.time_to_repeat_to_am_pm = false;
+                            }
+
+                            if (day_repeat_5_inp.text.Substring(6, 2) == "pm" ||
+                                day_repeat_5_inp.text.Substring(6, 2) == "Pm" ||
+                                day_repeat_5_inp.text.Substring(6, 2) == "PM")
+                            {
+                                taskData.time_to_repeat_to_am_pm = true;
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = "0";
+                    task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
+                    task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;
+                    day_repeat_2_inp.text = null;
+                    task_.GetComponent<task_data>().day_to_repeat_to = 0;
+                    day_repeat_1_inp.text = null;
+                }
+
             }
             else
             {
-                task_.GetComponent<task_data>().day_of_the_year_to_repeat_to = "0";
-                task_.GetComponent<task_data>().day_of_the_week_to_repeat_to = 0;
-                task_.GetComponent<task_data>().day_of_the_month_to_repeat_to = 0;day_repeat_2_inp.text = null;
-                task_.GetComponent<task_data>().day_to_repeat_to= 0;day_repeat_1_inp.text = null;
+                taskData.hours_to_repeat_to = 0;
+                taskData.minutes_to_repeat_to = 0;
+                taskData.seconds_to_repeat_to = 0;
+                taskData.time_to_repeat_to_h = 0;
+                taskData.time_to_repeat_to_m = 0;
             }
-            
         }
         
         
@@ -551,7 +658,14 @@ public class day_button_manager : MonoBehaviour
     
     public void repeat_custom_days()
     {
-        task_.GetComponent<task_data>().day_of_custom_repeat_to = day_repeat_4_inp.text;
+        if (day_repeat_4_inp.text.Length != 0)
+        {
+            task_.GetComponent<task_data>().day_of_custom_repeat_to = day_repeat_4_inp.text;
+        }
+        else
+        {
+            task_.GetComponent<task_data>().day_of_custom_repeat_to = "0";
+        }
     }
 
     public void toggle_repeat()

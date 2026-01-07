@@ -94,6 +94,7 @@ public class task_data : MonoBehaviour
     public bool time_to_repeat_to_am_pm;
     public string day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years) (maybe stick to 14 days for repeat every 2 weeks)
     public bool repeat_date;
+    public int day_repeat_modifier;
     
     [Header("sorting")]
     public List<string> positions_obj_name; //get the index of the object you are trying to retrieve and that index will be the position in the list(vertically not horizontally) that you need to get the thing.
@@ -753,7 +754,7 @@ public class task_data : MonoBehaviour
     {
         if (day_to_repeat_to != 0)
         {
-            Set_day(my_date_date_format.AddDays(day_to_repeat_to));
+            Set_day(my_date_date_format.AddDays(day_to_repeat_to * day_repeat_modifier));
         }
         if (day_of_the_week_to_repeat_to != 0)
         {
@@ -766,7 +767,7 @@ public class task_data : MonoBehaviour
             if (my_day_of_the_week == DayOfWeek.Thursday) day_add_to = day_of_the_week_to_repeat_to -5+7;
             if (my_day_of_the_week == DayOfWeek.Friday) day_add_to = day_of_the_week_to_repeat_to -6+7;
             if (my_day_of_the_week == DayOfWeek.Saturday) day_add_to = day_of_the_week_to_repeat_to -7+7;
-            Set_day(my_date_date_format.AddDays(day_add_to));
+            Set_day(my_date_date_format.AddDays(day_add_to * day_repeat_modifier));
         }
 
         if (day_of_the_month_to_repeat_to != 0)
@@ -774,7 +775,7 @@ public class task_data : MonoBehaviour
             //Debug.Log(my_date_date_format.ToString("MM/dd/yyyy").Substring(3,2));
             int day_ = int.Parse( my_date_date_format.ToString("MM/dd/yyyy").Substring(3,2));
             int day__ = day_of_the_month_to_repeat_to - day_;
-            int days_in_month = DateTime.DaysInMonth(my_date_date_format.AddMonths(1).Year, my_date_date_format.AddMonths(1).Month);
+            int days_in_month = DateTime.DaysInMonth(my_date_date_format.AddMonths(1 * day_repeat_modifier).Year, my_date_date_format.AddMonths(1 * day_repeat_modifier).Month);
             //if the day it is trying to set to is greater than the days in the month, set it to the last day of the month instead
             if (day_ + day__ > days_in_month)
             {
@@ -783,6 +784,11 @@ public class task_data : MonoBehaviour
             }
             //Debug.Log(day__);
             //Debug.Log(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month));  
+            int month_more;
+            if (day_repeat_modifier > 1)
+            {
+                //like.. add the next month as well.
+            }
             Set_day(my_date_date_format.AddDays(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month)));
         }
 
@@ -795,7 +801,7 @@ public class task_data : MonoBehaviour
                 string temp_2 = day_of_the_year_to_repeat_to.Substring(3, 2);
                 temp_3 = (temp_1 +"/"+ temp_2);
                 Debug.Log(temp_3+" 1");
-                if (temp_3 == "02/29" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1).Year) == false))
+                if (temp_3 == "02/29" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1 * day_repeat_modifier).Year) == false))
                 {
                     temp_3 = "02/28";
                 }
@@ -807,7 +813,7 @@ public class task_data : MonoBehaviour
                 string temp_2 = day_of_the_year_to_repeat_to.Substring(3, 2);
                 temp_3 = (temp_2 +"/"+ temp_1);
                 Debug.Log(temp_3+" 2");
-                if (temp_3 == "29/02" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1).Year) == false))
+                if (temp_3 == "29/02" && (DateTime.IsLeapYear(my_date_date_format.AddYears(1 * day_repeat_modifier).Year) == false))
                 {
                     temp_3 = "28/02";
                 }
@@ -820,7 +826,7 @@ public class task_data : MonoBehaviour
 
 
 
-            day_to_repeat_to_year = DateTime.Parse(temp_3+"/"+my_date_date_format.AddYears(1).Year.ToString());
+            day_to_repeat_to_year = DateTime.Parse(temp_3+"/"+my_date_date_format.AddYears(1 * day_repeat_modifier).Year.ToString());
             Debug.Log(day_to_repeat_to_year.ToString("d"));
             
             
@@ -855,15 +861,15 @@ public class task_data : MonoBehaviour
 
         if (hours_to_repeat_to != 0)
         {
-            Set_day(my_date_date_format.AddHours(hours_to_repeat_to));
+            Set_day(my_date_date_format.AddHours(hours_to_repeat_to * day_repeat_modifier));
         }
         if (minutes_to_repeat_to != 0)
         {
-            Set_day(my_date_date_format.AddMinutes(minutes_to_repeat_to));
+            Set_day(my_date_date_format.AddMinutes(minutes_to_repeat_to * day_repeat_modifier));
         }
         if (seconds_to_repeat_to != 0)
         {
-            Set_day(my_date_date_format.AddSeconds(seconds_to_repeat_to));
+            Set_day(my_date_date_format.AddSeconds(seconds_to_repeat_to * day_repeat_modifier));
         }
 
         if (time_to_repeat_to_h != 0)
@@ -872,9 +878,18 @@ public class task_data : MonoBehaviour
                 .AddMinutes(time_to_repeat_to_m - my_date_date_format.Minute));
         }
 
-        if (day_of_custom_repeat_to != null)
+        if (day_of_custom_repeat_to != "0")
         {
-            //if (day_of_custom_repeat_to.Substring())
+            if (day_of_custom_repeat_to.Substring(0, 1) == "a"
+                || day_of_custom_repeat_to.Substring(0, 1) == "A")
+            {
+                //multiply all 'repeat to's by the number to the right, using a modifier tacked on to the end of all of them.
+                day_repeat_modifier = int.Parse(day_of_custom_repeat_to.Substring(1));
+            }
+        }
+        else
+        {
+            day_repeat_modifier = 1;
         }
         
 

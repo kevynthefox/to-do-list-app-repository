@@ -746,6 +746,7 @@ MonoBehaviour:
   intermediate: 0
   move_speed: 10
   date_type: 0
+  time_type: 0
   later_this_week: 4
   this_weekend: 7
   next_week: 1
