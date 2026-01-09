@@ -271,8 +271,19 @@ public class day_button_manager : MonoBehaviour
             //Debug.Log("month " + int.Parse(today.Substring(0,2)) + "month_ " + month_);
             if (int.Parse(today.Substring(0, 2)) == month_)
             {
-                //Debug.Log("day " + int.Parse(today.Substring(3,2)) + "day_ " + day_);
                 day_buttons[int.Parse(today.Substring(3, 2))].GetComponent<Image>().color = Color.red;
+            }
+        }
+
+        day_ = task_.GetComponent<task_data>().my_date_date_format;
+        Debug.Log(day_);
+        if (day_.Year == year_)
+        {
+            //Debug.Log("year == year");
+            //Debug.Log("month " + int.Parse(today.Substring(0,2)) + "month_ " + month_);
+            if (day_.Month == month_)
+            {
+                day_buttons[day_.Day].GetComponent<Image>().color = Color.green;
             }
         }
 
@@ -418,6 +429,7 @@ public class day_button_manager : MonoBehaviour
     {
         menu_text.text = task_.GetComponent<task_data>().my_date_date_format.ToString("u");
         project_manager.current.update_current_area();
+        glow_today();
     }
     #endregion
     #region repetition
