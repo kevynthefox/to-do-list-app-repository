@@ -784,12 +784,17 @@ public class task_data : MonoBehaviour
             }
             //Debug.Log(day__);
             //Debug.Log(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month));  
-            int month_more;
+            int month_more = 0;
             if (day_repeat_modifier > 1)
             {
                 //like.. add the next month as well.
+                for (int i = 1; i < day_repeat_modifier; i++)
+                {
+                    month_more += DateTime.DaysInMonth(my_date_date_format.AddMonths(i).Year,
+                        my_date_date_format.AddMonths(i).Month);
+                }
             }
-            Set_day(my_date_date_format.AddDays(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month)));
+            Set_day(my_date_date_format.AddDays(day__ + DateTime.DaysInMonth(my_date_date_format.Year, my_date_date_format.Month) + month_more));
         }
 
         if (day_of_the_year_to_repeat_to != "0")    
@@ -880,12 +885,12 @@ public class task_data : MonoBehaviour
 
         if (day_of_custom_repeat_to != "0")
         {
-            if (day_of_custom_repeat_to.Substring(0, 1) == "a"
+            /*if (day_of_custom_repeat_to.Substring(0, 1) == "a"
                 || day_of_custom_repeat_to.Substring(0, 1) == "A")
             {
                 //multiply all 'repeat to's by the number to the right, using a modifier tacked on to the end of all of them.
                 day_repeat_modifier = int.Parse(day_of_custom_repeat_to.Substring(1));
-            }
+            }*/
         }
         else
         {

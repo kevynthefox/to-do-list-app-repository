@@ -276,7 +276,7 @@ public class day_button_manager : MonoBehaviour
         }
 
         day_ = task_.GetComponent<task_data>().my_date_date_format;
-        Debug.Log(day_);
+        //Debug.Log(day_);
         if (day_.Year == year_)
         {
             //Debug.Log("year == year");
@@ -673,6 +673,19 @@ public class day_button_manager : MonoBehaviour
         if (day_repeat_4_inp.text.Length != 0)
         {
             task_.GetComponent<task_data>().day_of_custom_repeat_to = day_repeat_4_inp.text;
+            
+            if (day_repeat_4_inp.text.Substring(0, 1) == "a"
+                || day_repeat_4_inp.text.Substring(0, 1) == "A")
+            {
+                //multiply all 'repeat to's by the number to the right, using a modifier tacked on to the end of all of them.
+                task_.GetComponent<task_data>().day_repeat_modifier = int.Parse(day_repeat_4_inp.text.Substring(1));
+            }
+
+            if (day_repeat_4_inp.text.Substring(0, 1) == "b"
+                || day_repeat_4_inp.text.Substring(0, 1) == "B")
+            {
+                //this will be "last day of the week  of the month"
+            }
         }
         else
         {
