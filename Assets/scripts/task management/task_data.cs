@@ -95,6 +95,7 @@ public class task_data : MonoBehaviour
     public string day_of_custom_repeat_to; //ie 1 would be last ___ of every month(it would be a modifier to previous repeat_to's) 2 could be every 2 weeks,3 every 3,4 every few months(and so on until you get to years) (maybe stick to 14 days for repeat every 2 weeks)
     public bool repeat_date;
     public int day_repeat_modifier;
+    public GameObject day_button_man;
     
     [Header("sorting")]
     public List<string> positions_obj_name; //get the index of the object you are trying to retrieve and that index will be the position in the list(vertically not horizontally) that you need to get the thing.
@@ -760,14 +761,14 @@ public class task_data : MonoBehaviour
         {
             float day_add_to = settings_controller.current.this_weekend;
             
-            if (my_day_of_the_week == DayOfWeek.Sunday) day_add_to = day_of_the_week_to_repeat_to -1+7;
-            if (my_day_of_the_week == DayOfWeek.Monday) day_add_to = day_of_the_week_to_repeat_to -2+7;
-            if (my_day_of_the_week == DayOfWeek.Tuesday) day_add_to = day_of_the_week_to_repeat_to -3+7;
-            if (my_day_of_the_week == DayOfWeek.Wednesday) day_add_to = day_of_the_week_to_repeat_to -4+7;
-            if (my_day_of_the_week == DayOfWeek.Thursday) day_add_to = day_of_the_week_to_repeat_to -5+7;
-            if (my_day_of_the_week == DayOfWeek.Friday) day_add_to = day_of_the_week_to_repeat_to -6+7;
-            if (my_day_of_the_week == DayOfWeek.Saturday) day_add_to = day_of_the_week_to_repeat_to -7+7;
-            Set_day(my_date_date_format.AddDays(day_add_to * day_repeat_modifier));
+            if (my_day_of_the_week == DayOfWeek.Sunday) day_add_to = day_of_the_week_to_repeat_to -1+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Monday) day_add_to = day_of_the_week_to_repeat_to -2+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Tuesday) day_add_to = day_of_the_week_to_repeat_to -3+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Wednesday) day_add_to = day_of_the_week_to_repeat_to -4+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Thursday) day_add_to = day_of_the_week_to_repeat_to -5+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Friday) day_add_to = day_of_the_week_to_repeat_to -6+7 + (7 * (day_repeat_modifier-1));
+            if (my_day_of_the_week == DayOfWeek.Saturday) day_add_to = day_of_the_week_to_repeat_to -7+7 + (7 * (day_repeat_modifier-1));
+            Set_day(my_date_date_format.AddDays(day_add_to));
         }
 
         if (day_of_the_month_to_repeat_to != 0)
@@ -908,6 +909,8 @@ public class task_data : MonoBehaviour
         }
 
         date_menu_header.text = my_date_date_format.ToString("u");
+        
+        day_button_man.GetComponent<day_button_manager>().glow_today();
         
         project_manager.current.update_current_area();
     }
