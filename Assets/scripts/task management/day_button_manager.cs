@@ -684,7 +684,7 @@ public class day_button_manager : MonoBehaviour
             if (day_repeat_4_inp.text.Substring(0, 1) == "b"
                 || day_repeat_4_inp.text.Substring(0, 1) == "B")
             {
-                //this will be "last day of the week  of the month"
+                //this will be "last day of the week of the month"
             }
         }
         else
